@@ -58,7 +58,6 @@ $(document).ready(function() {
             var fieldSet = criarEl("FIELDSET");
             var label = criarEl("LABEL", "Preço");
             var input = criarEl("INPUT");
-            var label = criarEl("LABEL", "Preço");
             var div = criarEl("DIV");
             input.classList.add("form-control");
             div.classList.add("form-group");
