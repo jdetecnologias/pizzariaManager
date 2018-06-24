@@ -493,12 +493,18 @@ $(document).ready(function() {
             $("#valor_total").html("R$ " + getValorTotal().toFixed(2));
         });
         $(".cep").on("blur",function(){
+          var paiDeTodos = $(this).parent();
+          var id = paiDeTodos.attr("id");
             $.ajax({
               url:"https://viacep.com.br/ws/"+$(this).val()+"/json/",
               dataType:"json",
               type:"get",
               success:function(end){
-                console.log(end);
+               $("#"+id+" .end").val(end.logradouro);
+               $("#"+id+" .bairro").val(end.bairro);
+               $("#"+id+" .cidade").val(end.localidade);
+               $("#"+id+" .uf").val(end.uf);
+               
               },
               error:function(){
                 alert("CEP não encontrado");
