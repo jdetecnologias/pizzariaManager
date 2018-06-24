@@ -218,15 +218,20 @@ $(document).ready(function() {
           var precos = precosPizzas();
           var pai = $(this).parent().attr("namespace");
           var tamanho = $(this).attr("tamanho");
+           $("#"+pai).attr("tamanho",tamanho)
           $("#"+pai+ " .preco").html(precos[tamanho]);
           $("#"+pai+ " #preco").val(precos[tamanho]);
         });
 
             var qtdSaboresPermitidos = 2;
             (function() {
-                function addListener(elemento) {
+                function removePai(elemento) {
                     elemento.addEventListener("click", function() {
-
+                        var qtd = parseInt($("#pedidoPizzaMeia").attr("qtd"));
+                        $("#pedidoPizzaMeia").attr("qtd",qtd-1)
+                        if(parseInt($("#pedidoPizzaMeia").attr("qtd")) === 0){
+                          $("#botoesTamanhoMeiaPizza").show();
+                        }
                         var valorTotal = tabelaPizzaMeia.getValorTotal();
                         var TRpai = elemento.parentNode.parentNode;
                         var valorItem = TRpai.querySelector(".precoItem").textContent;
@@ -240,6 +245,7 @@ $(document).ready(function() {
                 }
 
                 function adicionarItem() {
+                   
                     var codigo = this.getAttribute("codigo");
                     var preco = parseFloat(this.querySelector("input").value) / 2;
                     var sabor = this.querySelector(".descricao").getAttribute("sabor");
@@ -251,7 +257,10 @@ $(document).ready(function() {
                         if (tabelaPizzaMeia.getQtdSabores() > 1) {
                             alert("Somente são permitidos " + qtdSaboresPermitidos + " sabores de pizza!");
                         } else {
-                            $("#meia_pizza_controller").attr("produtoIncluso","true");
+                            
+                            $("#botoesTamanhoMeiaPizza").hide();
+                          var qtd = parseInt($("#pedidoPizzaMeia").attr("qtd"));
+                           $("#pedidoPizzaMeia").attr("qtd",qtd+1)
                             var tr = criarEl("TR");
                             tr.setAttribute("codigo", codigo);
                             var td = criarEl("TD", sabor);
@@ -270,7 +279,7 @@ $(document).ready(function() {
                             td.appendChild(spanX);
                             tr.appendChild(td);
                             tabelaPizzaMeia.tabelaSelecao().appendChild(tr);
-                            addListener(spanX);
+                            removePai(spanX);
                             var VT = arredondarNumeros(tabelaPizzaMeia.getValorTotal() + parseFloat(preco), 2);
                             tabelaPizzaMeia.setDescricao();
                             tabelaPizzaMeia.setValorTotal(VT);
@@ -470,14 +479,8 @@ $(document).ready(function() {
               }while(controle !== 1);
             }
         });
-     
-     
-     
-  
-          
-       
       
-        $(document).on('click', '.remover', function() {
+      $(document).on('click', '.remover', function() {
             var indice = $(this).parent().attr("indice");
             indice = parseInt(indice);
 
@@ -489,18 +492,33 @@ $(document).ready(function() {
             contador--;
             $("#valor_total").html("R$ " + getValorTotal().toFixed(2));
         });
-
+        $(".cep").on("blur",function(){
+            $.ajax({
+              url:"https://viacep.com.br/ws/"+$(this).val()+"/json/",
+              dataType:"json",
+              type:"get",
+              success:function(end){
+                console.log(end);
+              },
+              error:function(){
+                alert("CEP não encontrado");
+              }
+            });
+            
+        });
         $("#telefonePedido").on('blur', function() {
             var este = $(this);
             var campoNome = $("#nomeInput");
             var campoEnd = $("#endInput");
             var campoBairro = $("#bairroInput");
+            var nomeCliente = $("#nomeCliente");
             if (este.val() === "") {
                 getDadosCliente().setAttribute("status", 0);
                 limparInput("nomeInput", "endInput", "id_cliente","bairroInput");
                 campoNome.attr("readOnly", true);
                 campoEnd.attr("readOnly", true);
                 campoBairro.attr("readOnly", true);
+                nomeCliente.html("");
             } else {
                 var data = {
                     telefone: $(this).val()
@@ -512,7 +530,6 @@ $(document).ready(function() {
                     success: function(r) {
                         var campoDadosCliente = getDadosCliente();
                         if (r.status == 0) {
-
                             campoNome.val("");
                             campoEnd.val("");
                             campoNome.attr("readonly", false);

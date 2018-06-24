@@ -90,7 +90,7 @@
                                 </div>
                               <div id="corpoPedidoPizzaMeia" class="modal-body">
                                 
-                                <table id="pedidoPizzaMeia" class="table">
+                                <table id="pedidoPizzaMeia" class="table" qtd="0">
                                  
                                   
                                 </table>

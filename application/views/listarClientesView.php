@@ -45,6 +45,8 @@
               <input type="text" id="tel" name="tel" class="form-control" status="0"/>
               <label for="nome">Nome</label>
               <input type="text" id="nome" name="nome" class="form-control">
+              <label for="endInput">CEP</label>
+              <input type="text" id="cep" name="cep" class="cep form-control">
               <label for="endInput">Endereco</label>
               <input type="text" id="end" name="end" class="form-control">
               <label for="bairro">Bairro </label>

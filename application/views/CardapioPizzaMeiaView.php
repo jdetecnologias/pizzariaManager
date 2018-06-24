@@ -1,9 +1,9 @@
-<div id = "" namespace="meia_pizza_controller" class="btn-group btn-group-toggle my-2 controleTamanho" data-toggle="buttons">
-                                    <label tamanho="Media" class="btn selecionarPreco btn-secondary btn-sm active">
+<div id = "botoesTamanhoMeiaPizza" namespace="meia_pizza_controller" class="btn-group btn-group-toggle my-2 controleTamanho" data-toggle="buttons">
+                                    <label tamanho="Media" class="btn selecionarPreco btn-secondary btn-sm">
                                     <input type="radio"  name="options" id="option1" autocomplete="off" checked>
                                       Média
                                     </label>
-                                    <label tamanho="Grande" class="btn selecionarPreco btn-sm btn-secondary">
+                                    <label tamanho="Grande" class="btn selecionarPreco btn-sm btn-secondary active">
                                     <input type="radio" name="options"  id="option2" autocomplete="off">
                                       Grande
                                     </label>
