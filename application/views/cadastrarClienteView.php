@@ -1,6 +1,10 @@
 
 <div class="row">
         <div id="dados-do-cliente" class="col-12 col-sm-4" status="0" style="bo rder:1px solid red;"> 
+          <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
             <table class="table" style="bor der:1px solid black;">
                  <form method="post" action="#<?php /*echo base_url('anotarPedido/finalizar');*/?>">
                     <input type="hidden" name="id_cliente" id="id_cliente"/>

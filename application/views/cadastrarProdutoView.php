@@ -6,15 +6,19 @@
   <form name="cadastroProduto" method="post" action="<?php echo base_url("CadastrarProduto/finalizar");?>">
     <div id="caracDosProdutos">
       <div class="form-group my-2  ">
-         <div class="form-group">
-       <label for="sabor" >Categoria do produto</label>
-        <select name="categoria" id="categoria">
-            <option>SELECIONE:</option> 
-            <option value="1">Pizzas</option> 
-           <option value ="2">Bebidas</option> 
-          <option value="3">Adicionais</option>
+        <div class="form-group"><!-- INICIO Categorias produtos-->
+        <div class="input-group mb-3">
+        <div class="input-group-prepend">
+        <label class="input-group-text" for="categoria">Opções</label>
+        </div>
+        <select name="categoria" id="categoria" class="custom-select" id="categoria">
+        <option selected>Escolha a categoria...</option>
+        <option value="1">Pizzas</option>
+        <option value="2">Bebidas</option>
+        <option value="3">Adicionais</option>
         </select>
         </div>
+        </div><!-- FIM Categorias produtos-->
          <label for="produto" >Produto</label>
         <input type="text" name="produto" id="produto" class="form-control"/>
       </div>

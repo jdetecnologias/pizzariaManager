@@ -6,8 +6,8 @@
                     <input type="hidden" name="id_cliente" id="id_cliente"/>
                         <div class="col-12 row">
                             <div class="col-5">
-                                <button class="btn-primary btn-sm btn-block text-center" data-toggle="modal" data-target="#dadosCliente">
-                                    <i class="far fa-ad dress-card fa-lg"></i> CLIENTE
+                                <button class="btn-primary btn-sm btn-block text-center mt-2" data-toggle="modal" data-target="#dadosCliente">
+                                    <i class="far fa-address-card fa-lg"></i> CLIENTE
                                 </button>
                             </div> 
                            <div id="nomeCliente" class="col-7 text-center">
@@ -36,7 +36,7 @@
                                     
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Confirmar</button>
                                     </div>
                                   </div>
                                 </div>     
@@ -44,7 +44,7 @@
                              </table>
                              <div id="pedido" class="COL-12" style="bor der:1px solid red;">  
           
-                              <table id ="corpo_pedido" class="table border" style="bor der:1px solid black;">
+                              <table id ="corpo_pedido" class="table table-bordered" style="bor der:1px solid black;">
 
 
                                   <tr class="cabecalho">
@@ -58,9 +58,9 @@
                                   </tr>
 
                                   <tr class="cabecalho">
-                                      <td style="bor der:1px solid black;" class="my-0"><label  style="bo rder:1px solid black;"><span class="btn-outline-primary">produto</span></label></td>
-                                      <td style="bor der:1px solid black;" class="my-0"><label style="bo rder:1px solid black;"><span class="btn-outline-primary">R$</span></label></td>
-                                      <td style="bor der:1px solid black;" class="my-0"><label class="" ><span class="btn-danger btn-sm btn-block">X</span></label> </td>
+                                      <td style="bor der:1px solid black;" class="my-auto"><label  style="bo rder:1px solid black;"><span class="">produto</span></label></td>
+                                      <td style="bor der:1px solid black;" class="my-0"><label style="bo rder:1px solid black;"><span class="">R$</span></label></td>
+                                      <td style="bor der:1px solid black;" class="my-0"><label class="" ><span class="fas fa-trash-alt btn-sm btn-block "></span></label> </td>
                                   </tr>
                               </table>
                       </div>
@@ -77,7 +77,7 @@
     <div class="col-12 col-sm-7 border" style="bor der:1px solid red;">
      	  <?php 
           $this->load->view("CardapioAnotarPedidoView",array("result"=>$prod,"categorias"=>$categorias));
-      ?>
+         ?>
      </div> 
             <div id="meiaPizza" class="modal">
                           <div class="modal-dialog">

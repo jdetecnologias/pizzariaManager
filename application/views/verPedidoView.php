@@ -1,4 +1,4 @@
-<div class="col-xs-12 row">
+<div class="col-md-12 row">
 
 
 <?php
@@ -12,7 +12,7 @@ if(isset($pedidos)){
             <div class="telefone col-xs-12">Telefone: <?php echo $pedido->telefone;?></div>
             <div class="HoraData col-xs-12">End:<?php echo $pedido->endereco;?></div>
         </div>
-        <div class="col-xs-12 row text-center border">
+        <div class="col-md-12 row text-center border">
             <div class="tempoPreparo col-xs-4 col-sm-4 no-padding"><div>Tempo de preparo</div></div>
             <div class="verItens col-xs-4 col-sm-4">Ver pedido</div>
             <div class="status col-xs-4 col-sm-4">

@@ -14,4 +14,17 @@ public function getProdutos(){
   }
 		
 }
+  public function getPrecosPizzaPorTamanho(){//para requisições ajax.
+    $this->load->model('produtoModel');
+    $tamanho = $this->input->post("tamanho");
+		$preparar = new produtoModel();
+		$result = $preparar->getPrecosPizzaPorTamanho($tamanho);
+    if($result == false){
+      echo 0;
+    }
+  else{
+    echo $result;
+  }
+		
+}
 }

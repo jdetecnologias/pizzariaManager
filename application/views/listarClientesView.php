@@ -1,15 +1,19 @@
 
-<div id="listagemCliente" class="col-xs-12 col-sm-12">
+<div id="listagemCliente" class="col-md-12 col-sm-12 border border-success">
+   <form class="form-inline my-2">
+          <input class="form-control mr-sm-2 col-md-3" type="search" placeholder="Numero ou nome do cliente" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+   </form>
    <?php
   if(isset($dados)){
-      echo "<table class='table table-dark table-striped'>";
+      echo "<table class='table table-bordered table-hover table-striped'>";
       	echo "<thead class='thead-light'>
         <tr><td colspan='2'>Nome</td><td>Endereço</td><td>Bairro</td><td>Telefone</td></tr>
               </thead>";
       		foreach($dados as $cliente){
       			
       			echo "<tr class='linha'>";
-              echo "<td class= 'idCliente'><input type='radio' name='id' value='".$cliente->id."'/>".$cliente->id."</td>";
+              echo "<td class= 'idCliente'><input class='mx-2' type='radio' name='id' value='".$cliente->id."'/>".$cliente->id."</td>";
               echo "<td class='nome'>".$cliente->nome."</td>\n";
               echo "<td class='end'> ".$cliente->endereco."</td>\n";
               echo "<td class='bairro'>".$cliente->bairro."</td>\n";
@@ -77,7 +81,15 @@
               <label for="endInput">Endereco</label>
               <input type="text" id="end" name="end" class="form-control">
               <label for="bairro">Bairro </label>
-             <input type="text" id="bairro" name="bairro" class="form-control">
+           <!--<input type="text" id="bairro" name="bairro" class="form-control"> -->
+             <select class="form-control border border-success" type="text" id="bairro" name="bairro">
+               <option>Parque Atheneu</option>
+               <option>Jardim marilizar</option>
+               <option>Parque trindade 1</option>
+               <option>Parque Trindade 2</option>
+               
+             </select>
+             
              </div>
              <div>
                <button class="btn btn-primary" type="submit">

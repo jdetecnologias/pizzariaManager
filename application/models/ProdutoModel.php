@@ -42,6 +42,17 @@ class ProdutoModel extends CI_Model{
     }
     
   }
+  public function getPrecosPizzaPorTamanho($tamanho){
+    $this->db->where("tamanho",$tamanho);
+    $query = $this->db->get("precos");
+    if($query){
+      $linha =  $query->row();
+      return $linha->preco;
+    }
+    else{
+      return false;
+    }
+  }
 	
 }
 

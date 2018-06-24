@@ -1,39 +1,49 @@
-<div class="col-md-3 mx-0 " id="div-barra-lateral">
-			<nav class="navbar navbar-fixed-top border " id="nav-navbar-lateral"><!--navbar lateral -->
-				<ul id="ul-menu-lateral" class="navbar-nav " ><!--ul-lateral -->
-					<li><a class="borda btn btn-outline-primary" style="text-align:left;" href="<?php echo base_url();?>"><i class="fas fa-home fa-lg "></i><span role="separator"></span> Home</a></li>
-					<span class="divisor2"></span>
+<!--<div class=" col-md-2   mx-0 border border-success" id="div-barra-lateral">
+			<nav class="navbar navbar-fixed-top border border-warning " id="nav-navbar-lateral">--><!--navbar lateral -->
+				<ul id="ul-menu-lateral" class="navbar-nav" ><!--ul-lateral -->
+					<li class="" ><a class="borda btn btn-primary text-left" href="<?php echo base_url();?>">        
+            <p class="fas fa-home ">
+              Home</p>
+            <span role="separator"></span>
+            </a></li>
+            
+ 					<span class="div isor2"></span>
+					<li class="">
+						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("exibir/clientes");?>">
+							<p class="fas fa-users">
+              Clientes</p>  
+							<span role="separator" class=""></span>
+						</a>
+					</li>
+					<span class="div isor2"></span>
 					<li>
-						<a class="borda btn btn-outline-primary " style="text-align:left;"  href="<?php echo base_url("exibir/clientes");?>">
-							<i class="fas fa-users fa-lg "></i>
-							<span role="separator" class=""></span>Clientes 
+						<a class="borda btn btn-primary text-left text-md-left" href="<?php echo base_url("anotarPedido/formulario");?>">
+              <p class="fas fa-cart-plus text-sm-left">
+              Vendas</p>
+								<span role="separator"></span> 
 						</a>
 					</li>
-					<span class="divisor2"></span>
-					<li>
-						<a class="borda btn btn-outline-primary" style="text-align:left;"  href="<?php echo base_url("anotarPedido/formulario");?>">
-								<i class="fas fa-cart-plus fa-lg"></i>
-								<span role="separator"></span> Vendas
-						</a>
-					</li>
-					<span class="divisor2"></span>	
+					<span class="divi sor2"></span>	
           	<li>
-						<a class="borda btn btn-outline-primary" style="text-align:left;"  href="<?php echo base_url("cadastrarProduto");?>">
-								<i class="fas fa-cart-plus fa-lg"></i>
-								<span role="separator"></span> Produtos
+						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("cadastrarProduto");?>">
+								
+              <p class="fas fa-cart-plus text-sm-left">
+              Produtos</p> 
+								<span role="separator"></span> 
 						</a>
 					</li>
-					<span class="divisor2"></span>	
+					<span class="divis or2"></span>	
           	<li>
-						<a class="borda btn btn-outline-primary" style="text-align:left;"  href="<?php echo base_url("VerPedido");?>">
-								<i class="fas fa-cart-plus fa-lg"></i>
-								<span role="separator"></span>Perdidos
+						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("VerPedido");?>">
+               <p class="fas fa-cart-plus text-sm-left">
+              Perdidos</p>
+								<span role="separator"></span>
 						</a>
 					</li>
-					<span class="divisor2"></span>
+					<span class="div isor2"></span>
         
 				</ul><!--/ul-lateral -->
-			</nav><!--/navbar lateral -->
-		</div><!--/div-barra-lateral -->
+			<!--</nav><!--/navbar lateral -->
+		<!--</div>/div-barra-lateral -->
 
 <!-- Menu -->
