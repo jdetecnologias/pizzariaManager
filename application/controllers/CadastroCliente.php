@@ -1,0 +1,99 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class CadastroCliente extends MY_Controller {
+
+	public function cadastrar(){
+		$this->load->model('CadastroModel');
+		$nome = $this->input->post("nome");
+		$end = $this->input->post("end");
+		$tel = $this->input->post("tel");
+		$bairro = $this->input->post("bairro");
+		$dados = array("nome"=>$nome,"endereco"=>$end,"telefone"=>$tel,"BAIRRO"=>$bairro,"status"=>1);
+		$cad = new cadastroModel();
+		$result = $cad->cadastrarCliente($dados);
+		if($result != false){
+      echo 1;
+			$msn = "cadastrado com sucesso";
+		}	
+		else{
+      echo 0;
+			$msn = "erro ao cadastrar";
+		}
+		$this->load->view('inicio',array("retorno"=>"3","msn"=>$msn));
+	}
+  public function cadastrarViaAjax(){
+    $this->load->library("form_validation");
+		$this->load->model('CadastroModel');
+    $this->form_validation->set_rules("nome","","required");
+    $this->form_validation->set_rules("end","","required");
+    $this->form_validation->set_rules("tel","","required");
+    $this->form_validation->set_rules("bairro","","required");
+    if($this->form_validation->run()){
+        $nome = $this->input->post("nome");
+        $end = $this->input->post("end");
+        $tel = $this->input->post("tel");
+        $bairro = $this->input->post("bairro");
+        $dados = array("nome"=>$nome,"endereco"=>$end,"telefone"=>$tel,"BAIRRO"=>$bairro,"status"=>1);
+        $cad = new cadastroModel();
+        $result = $cad->cadastrarCliente($dados);
+        if($result != false){
+          echo $result;
+
+        }	
+        else{
+          echo 0;
+
+        }
+		}
+    else{
+      echo 9;
+    }
+	}
+	public function editar(){
+		$this->load->model('CadastroModel');
+		$id = $this->input->post("idCliente");
+		$nome = $this->input->post("nome");
+		$end = $this->input->post("end");
+		$tel = $this->input->post("tel");
+		$bairro = $this->input->post("bairro");
+		$dados = array("nome"=>$nome,"endereco"=>$end,"telefone"=>$tel,"bairro"=>$bairro);
+		$cad = new cadastroModel();
+		$result = $cad->editar($id,$dados);
+		if($result){
+			$msn = "Editado com sucesso";
+		}	
+		else{
+			$msn = "erro ao editar";
+		}
+		$this->load->view('inicio',array("retorno"=>3,"msn"=>$msn));
+	}
+  
+	public function deletar($id){
+		$this->load->model('cadastroModel');
+		
+		
+		$cad = new cadastroModel();
+		$result = $cad->deletar($id);
+		if($result){
+			$msn = "Deletador com sucesso";
+		}	
+		else{
+			$msn = "erro ao deletar";
+		}
+		$this->load->view('inicio',array("msn"=>$msn));
+	}
+
+public function deletarViaAjax(){
+    $id = $this->input->post("id");
+    $this->load->model('cadastroModel');
+		$cad = new cadastroModel();
+		$result = $cad->deletar($id);// marca a tag
+		if($result){
+			echo 1;
+		}	
+		else{
+			echo 0;
+		}
+	}
+}
