@@ -243,7 +243,20 @@ $(document).ready(function() {
                         tabelaPizzaMeia.setDescricao();
                     });
                 }
-
+                var novaMeiaPizza = function(){
+                  var obj = {
+                      esconderBotoes:function(){
+                       $("#botoesTamanhoMeiaPizza").hide();
+                      },
+                      mostrarBotoes:function(){
+                        $("#botoesTamanhoMeiaPizza").show();
+                      },
+                      getQtd:function(){
+                        return parseInt($("#pedidoPizzaMeia").attr("qtd"));
+                      }
+                  }
+                  return obj;
+                     }
                 function adicionarItem() {
                    
                     var codigo = this.getAttribute("codigo");
@@ -257,9 +270,9 @@ $(document).ready(function() {
                         if (tabelaPizzaMeia.getQtdSabores() > 1) {
                             alert("Somente são permitidos " + qtdSaboresPermitidos + " sabores de pizza!");
                         } else {
-                            
-                            $("#botoesTamanhoMeiaPizza").hide();
-                          var qtd = parseInt($("#pedidoPizzaMeia").attr("qtd"));
+                           var pizza = new novaMeiaPizza();
+                           pizza.esconderBotoes();
+                          var qtd = pizza.getQtd();
                            $("#pedidoPizzaMeia").attr("qtd",qtd+1)
                             var tr = criarEl("TR");
                             tr.setAttribute("codigo", codigo);
@@ -273,6 +286,7 @@ $(document).ready(function() {
                             spanX.classList.add("btn");
                             spanX.classList.add("fas");
                             spanX.classList.add("fa-trash-alt");
+                            spanX.classList.add("text-danger");
                             spanX.classList.add("btn-sm");
                             spanX.classList.add("removerItem");
                             td = criarEl("TD", null);
@@ -303,13 +317,9 @@ $(document).ready(function() {
                     });
 
                     var cabecalho = getElContent("#corpo_pedido tr.cabecalho");
-
                     listarItens(dadosDoPedido, "#corpo_pedido", cabecalho);
                     tabelaPizzaMeia.apagarDadosTabela();
                     tabelaPizzaMeia = new novaPizzaMeia();
-
-
-
                 } else {
                     alert("Favor selecionar dois sabores de pizza para completar o pedido da meia pizza!");
                 }
@@ -449,11 +459,17 @@ $(document).ready(function() {
                 var campoEnd = $("#endInput");
                 var campoBairro = $("#bairroInput");
                 var campoTel =  $("telefonePedido");
+                var cep = $("#cep");
+                var cidade = $("#cidade");
+                var uf = $("#uf");
                 var data = {
                      nome:campoNome,
                      end:campoEnd,
                      bairro:campoBairro,
-                     tel:campoTel
+                     tel:campoTel,
+                     cidade: cidade,
+                      cep: cep,
+                     uf:uf
                 } 
                 
                 $.ajax({
@@ -512,6 +528,8 @@ $(document).ready(function() {
             });
             
         });
+      
+   
         $("#telefonePedido").on('blur', function() {
             var este = $(this);
             var campoNome = $("#nomeInput");
@@ -536,6 +554,7 @@ $(document).ready(function() {
                     success: function(r) {
                         var campoDadosCliente = getDadosCliente();
                         if (r.status == 0) {
+                            $("#dadosCliente").attr("cadastrarCliente","true");
                             campoNome.val("");
                             campoEnd.val("");
                             campoNome.attr("readonly", false);

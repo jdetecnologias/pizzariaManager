@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/fa-regular.css");?>"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url("css/fa-solid.css");?>"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+ 
+
 
 <style>
 	#t opo div {border:1px solid black;}
@@ -21,12 +23,12 @@
      		  <?php $this->load->view("topoView");?>
       </div>
 	</nav>
-	<div id="principal" class="col-md-12 row">
-    <div id="menu-lateral" class="col-md-2 my-5 border border-primary rounded">
+	<div id="principal" class="col-md-12 row  ">
+    <div id="menu-lateral" class="col-md-2 mt-3 border border-primary rounded fixed-left">
    <?php $this->load->view("menuLateralView");?>   
     </div>
 	 
-    <div id="content" class="col-md-10 my-5 border border-primary rounded">             
+    <div id="content" class="col-md-10 mt-3 border border-primary rounded">             
 			<div id="mensagens">
 				<?php if(isset($msn)){echo $msn;}?>
 			</div>
@@ -66,11 +68,13 @@
 	</div>
     <!-- /Parte Principal-->
 	<div id="footer" class="col-xs-12 row">
-	  <div class="col-sm-12">JUlio Alves</div>
+	  <div class="col-sm-12">Websoft factory</div>
     
 </div>
 
 <script src="<?php echo base_url('/js/jquery3.3.1.js');?>"></script>
 <script src="<?php echo base_url('/js/bootstrap.min.js');?>"></script>
 <script src="<?php echo base_url('/js/init.js');?>" text="javascript/text" language="javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js">/script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+

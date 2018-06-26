@@ -25,11 +25,16 @@
                           2-SABORES
                         </button>--><div class="row">
                                    <div class="btn-group-toggle" data-toggle="buttons" >
-                                   <label class="btn btn-success active btn-sm my-2 mx-2" data-toggle="modal" data-target="#meiaPizza">
+                                   <label id="pedirMeiaPizza" class="btn btn-success active btn-sm my-2 mx-2" data-toggle="modal" data-target="#meiaPizza">
                                    <input type="checkbox" checked autocomplete="off" data-toggle="modal" data-target="#meiaPizza">2-Sabores
                                    </label>
+                                   
                                    </div>
-                                    <div id = "" namespace="cardapioPizza" class="btn-group btn-group-toggle my-2 controleTamanho" data-toggle="buttons">
+                                   <div>
+                                
+                                     
+                                   </div>
+                                   <div id = "" namespace="cardapioPizza" class="btn-group btn-group-toggle my-2 controleTamanho" data-toggle="buttons">
                                     <label tamanho="Media" class="btn selecionarPreco btn-secondary btn-sm active">
                                     <input type="radio"  name="options" id="option1" autocomplete="off" checked>
                                       Média
@@ -62,7 +67,7 @@
                           foreach($result as $listaProd){
                                         if($listaProd->categoria == $cat->id){
                                           echo "<tr class='produto' codigo='".$listaProd->id_produto."'>
-                                          <input type='hidden' value='".$listaProd->valorUnitario."' id='preco'><th scope='row'>1/2</th>
+                                          <input type='hidden' value='".$listaProd->valorUnitario."' id='preco'><th class="tipoPizza" scope='row'>1/2</th>
                                           <td class='descricao' sabor='".$listaProd->sabor."'>
                                           <a href='#' style='text-decoration: none;' ><!--".$listaProd->tipoProduto."--> ".$listaProd->sabor."</a>
                                           </td><th scope='row' class='input-group-text pl-1 pr-0'>R$</th><td class='preco'>".$listaProd->valorUnitario."</td></tr>";

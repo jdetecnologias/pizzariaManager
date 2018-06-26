@@ -15,7 +15,7 @@
                             </div> 
                        </col>   
                            <form method="post" action="#<?php /*echo base_url('anotarPedido/finalizar');*/?>">
-                              <div id="dadosCliente" class="modal">
+                              <div id="dadosCliente" class="modal" cadastrarCliente="false">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                      <div class="modal-header">
