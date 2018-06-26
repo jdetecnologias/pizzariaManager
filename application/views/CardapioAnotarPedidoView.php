@@ -67,7 +67,7 @@
                           foreach($result as $listaProd){
                                         if($listaProd->categoria == $cat->id){
                                           echo "<tr class='produto' codigo='".$listaProd->id_produto."'>
-                                          <input type='hidden' value='".$listaProd->valorUnitario."' id='preco'><th class="tipoPizza" scope='row'>1/2</th>
+                                          <input type='hidden' value='".$listaProd->valorUnitario."' id='preco'><th class='tipoPizza' scope='row'>1/2</th>
                                           <td class='descricao' sabor='".$listaProd->sabor."'>
                                           <a href='#' style='text-decoration: none;' ><!--".$listaProd->tipoProduto."--> ".$listaProd->sabor."</a>
                                           </td><th scope='row' class='input-group-text pl-1 pr-0'>R$</th><td class='preco'>".$listaProd->valorUnitario."</td></tr>";

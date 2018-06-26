@@ -23,7 +23,7 @@
                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                                      </div>
                                     <div class="modal-body">
-
+                                          
                                     <label for="telefonePedido">Telefone</label>
                                         <input type="text" id="telefonePedido" name="telefone" class="form-control" status="0"/>
                                     <label id="nome" for="nomeImput">Nome</label>

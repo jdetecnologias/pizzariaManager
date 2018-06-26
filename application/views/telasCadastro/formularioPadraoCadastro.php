@@ -1,3 +1,4 @@
+              <input type="hidden" id="idCliente" name="idCliente" class="form-control" status="0"/>
               <label for="tel">Telefone: </label>
               <input type="text" id="tel" name="tel" class="form-control" status="0"/>
               <label for="nome">Nome: </label>

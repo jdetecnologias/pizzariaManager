@@ -116,7 +116,7 @@ x++;
           var td = tr.querySelectorAll("td");
            
         acionarEl(td,function(ele){
-          console.log(ele.getAttribute("class"));
+          
             acionarEl(campoEdit,function(elem){
              
               elem.querySelector("#"+ele.getAttribute("class")).value = ele.textContent;

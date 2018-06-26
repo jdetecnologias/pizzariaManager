@@ -9,7 +9,19 @@ $(document).ready(function() {
     getURL = function getUr(url) {
         return urlRoot + url;
     }
-    
+    function apagarDadosDoFormulario(form){
+      var Elementos = ("input","select");
+      var y = 0;
+      while(Elementos[y]){
+      var inputs = form.querySelectorAll(Elementos[y]);
+      var x=0;
+      while(inputs[x]){
+        inputs[x].value = "";
+        x++;
+      }
+        y++;
+        }
+    }
     function getPrecosPizzaDB(tamanho){
         var valorDaPizza;
         $.ajax({url:getUrl("produto/getPrecosPizzaPorTamanho"),
@@ -427,7 +439,7 @@ $(document).ready(function() {
             if (dadosDoPedido.length === 0) {
                 alert("nulo");
             } else {
-              do{
+              
                 var controle = 0;
                 if (status === "1") {
 
@@ -492,7 +504,7 @@ $(document).ready(function() {
                     });
                 status = 1;
               }
-              }while(controle !== 1);
+             
             }
         });
       
@@ -508,9 +520,12 @@ $(document).ready(function() {
             contador--;
             $("#valor_total").html("R$ " + getValorTotal().toFixed(2));
         });
+      
         $(".cep").on("blur",function(){
           var paiDeTodos = $(this).parent();
+          
           var id = paiDeTodos.attr("id");
+          $(".complemento").val("");
             $.ajax({
               url:"https://viacep.com.br/ws/"+$(this).val()+"/json/",
               dataType:"json",

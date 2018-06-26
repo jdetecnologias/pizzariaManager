@@ -7,7 +7,7 @@
          </div>
          <div class="modal-body">
            <div class="form-group">
-           <form name="editarCliente" method="post" action="<?= base_url('cadastroCliente/editar');?>">
+           <form name="editarCliente" id="editarCliente" method="post" action="<?= base_url('cadastroCliente/editar');?>">
               
               <?php $this->load->view("telasCadastro/formularioPadraoCadastro");?>
              </div>

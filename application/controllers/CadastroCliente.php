@@ -80,14 +80,12 @@ class CadastroCliente extends MY_Controller {
   }
 	
 	public function editar(){
+    $dados = $this->cad();
+    if($dados != false){
 		$this->load->model('CadastroModel');
-		$id = $this->input->post("idCliente");
-		$nome = $this->input->post("nome");
-		$end = $this->input->post("end");
-		$tel = $this->input->post("tel");
-		$bairro = $this->input->post("bairro");
-		$dados = array("nome"=>$nome,"endereco"=>$end,"telefone"=>$tel,"bairro"=>$bairro);
+		
 		$cad = new cadastroModel();
+      $id = $this->input->post("idCliente");
 		$result = $cad->editar($id,$dados);
 		if($result){
 			$msn = "Editado com sucesso";
@@ -95,6 +93,10 @@ class CadastroCliente extends MY_Controller {
 		else{
 			$msn = "erro ao editar";
 		}
+      }
+    else{
+      $msn = "Preencher todos os campos";
+    }
 		$this->load->view('inicio',array("retorno"=>3,"msn"=>$msn));
 	}
   
