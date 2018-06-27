@@ -1,5 +1,5 @@
-<div id="dadosClienteCadastrar" class="modal">
-   <div class="modal-dialog">
+<div id="dadosClienteCadastrar" class="modal border border-success">
+   <div class="modal-dialog border border-danger">
       <div class="modal-content">
          <div class="modal-header">
             <h4 class="modal-title">Cadastrar Cliente</h4>
@@ -14,13 +14,13 @@
            </div>
              <div>
                <button class="btn btn-primary" type="submit">
-                 Gravar
+                 Salvar
                </button>
              </div>
           </form> 
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
          </div>
       </div>
    </div>
