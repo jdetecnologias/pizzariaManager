@@ -29,11 +29,8 @@
                                     <label id="nome" for="nomeImput">Nome</label>
                                         <input type="text" id="nomeInput" class="form-control" readonly="true">
                                     <label for="endInput">Endereco</label>
-                                        <input type="text" id="endInput" class="form-control" readonly="true">
-                                    
-                                      <label for="endInput">bairro</label>
-                                        <input type="text" id="bairroInput" class="form-control" readonly="true">
-                                    
+                                      <textarea id="endInput" class="form-control" readonly="true"></textarea>
+                                  
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Confirmar</button>
