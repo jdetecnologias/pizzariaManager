@@ -8,8 +8,14 @@ text-transform: uppercase;
 
 /* Fim botao toggle  */
 
-
-
+/* colina da tabela do ver pedidos,retira o padding, para uma melhor visão do acompanhamento dos pedidos. */
+#visualizarPedidos table tr td {
+  padding:0;!important
+}
+/* Cabeçalho da tabela do ver pedidos, aplica a cor de fundo*/
+#visualizarPedidos table tr.cabecalho {
+  background-color:#8FBC8F;!important
+}
 
 
 /* navbar-leteral  */

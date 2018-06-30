@@ -26,7 +26,7 @@ class AnotarPedido extends MY_Controller {
                     $precoTotal += $dadosDoPedido[$x]["preco"];
                     $x++;  
                 }
-	            	$data = time();
+	            	$data = now('America/Sao_Paulo');
                 $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"data_criacao"=>$data);
                 $this->load->model("anotarPedidoModel");
                 $gravar = new AnotarPedidoModel();
