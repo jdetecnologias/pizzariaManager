@@ -16,7 +16,18 @@ text-transform: uppercase;
 #visualizarPedidos table tr.cabecalho {
   background-color:#8FBC8F;!important
 }
-
+#visualizarPedidos table {
+  font-size:12px;!important
+  font-family:coriew new;!important
+  line-height:auto;
+}
+.noPrazo {
+  color:green;
+}
+.atrasado {
+  color:red;
+ 
+}
 
 /* navbar-leteral  */
 #nav-navbar-lateral{
@@ -26,6 +37,9 @@ text-transform: uppercase;
 	hei ght: 90%;
   wid th:90%;
 	border-radius: 5px;
+}
+.no-padding-x{
+  padding:0;!important
 }
 #menu-lateral{
 	background-image: -webkit-linear-gradient(left, #f6f8f9 0%, #E5EBEE 50%, #D7DEE3 51%, #f5f7f9 100%);

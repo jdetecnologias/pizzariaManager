@@ -8,7 +8,7 @@ class FinalizarPreparo extends MY_Controller {
 		$att = new finalizarPreparoModel();
 		$numeroPedido = $this->input->post("numeroPedido");
 		$status = $att->AtualizarStatus($numeroPedido);
-		if($status){
+		if($status == true){
 			echo "1";
 		}
 		else{

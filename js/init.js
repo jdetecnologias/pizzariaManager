@@ -12,7 +12,17 @@ $(document).ready(function() {
       return parseInt($("#pedidoPizzaMeia").attr("qtd"));
     }
   }
-
+  function verPedidos(){
+    $.ajax({
+      url:getUrl("verPedido/atualizarPagina"),
+      type:"GET",
+      success: function(r){
+        $("#visualizarPedidos").parent().html(r);
+      }
+    }
+    
+    );
+  }
   function getUrl(url) {
     return urlRoot + url;
   }
@@ -358,12 +368,19 @@ $(document).ready(function() {
     function removeItem(arr, inicio, qtd) {
       arr.splice(inicio, qtd);
     }
-    (function finalizarPreparo() {
+    document.addEventListener("click",function(e){
+      if(e.target.classList.contains("btn-finalizar")){
+        finalizarPreparo(e.target);
+      }
+    });
+    function finalizarPreparo(el) {
       var btnFinalizar = document.querySelectorAll(".btn-finalizar");
       var x = 0;
-      while (btnFinalizar[x]) {
-        btnFinalizar[x].addEventListener("click", function() {
-          var numeroPedido = this.parentNode.parentNode.getAttribute("numeroPedido");
+      
+        
+          var numeroPedido = el.parentNode.parentNode.getAttribute("pedido");
+           var resposta =confirm("Você deseja finalizar o preparo deste pedido? ");
+          if(resposta){
           $.ajax({
             url: getUrl("FinalizarPreparo/finalizar"),
             type: "post",
@@ -372,18 +389,18 @@ $(document).ready(function() {
             },
             success: function(r) {
               r = parseInt(r);
-              console.log(typeof r + " " + r);
               if (r == 1) {
                 alert("O pedido foi finalizado");
-              } else if (r == 0) {
+                verPedidos();
+              } else if (r === 0) {
                 alert("Deu errado");
               }
             }
           });
-        });
-        x++;
-      }
-    })();
+          }
+       
+      
+    }
     $('.produto').on('click', function() {
       var preco = $(this).children(".preco").text(); //acessar filho
       var codigo = $(this).attr('codigo'); //
