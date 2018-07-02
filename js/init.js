@@ -12,6 +12,7 @@ $(document).ready(function() {
       return parseInt($("#pedidoPizzaMeia").attr("qtd"));
     }
   }
+  
   function verPedidos(){
     $.ajax({
       url:getUrl("verPedido/atualizarPagina"),
@@ -26,6 +27,7 @@ $(document).ready(function() {
   function getUrl(url) {
     return urlRoot + url;
   }
+  verPedido = verPedidos();
   getURL = function getUr(url) {
     return urlRoot + url;
   }
@@ -73,6 +75,12 @@ $(document).ready(function() {
   }
   (function(e) {
     "use strict";
+    if(document.querySelector("#visualizarPedidos") == null){
+  
+      }
+    else{
+      setInterval(function(){verPedidos();},10000);
+    }
     if (document.getElementById("categoria") != null) {
       function haCampoPreco() {
         if (document.getElementById("precoProduto") != null) {
@@ -81,6 +89,10 @@ $(document).ready(function() {
           return false;
         }
       }
+      
+      
+      
+      
       var categoria = document.getElementById("categoria");
       categoria.addEventListener("change", function() {
         var caracDosProdutos = document.getElementById("caracDosProdutos");
@@ -509,6 +521,7 @@ $(document).ready(function() {
         }
       });
     });
+    
     $("#telefonePedido").on('blur', function() {
       var este = $(this);
       var campoNome = $("#nomeInput");
