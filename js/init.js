@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  urlRoot = "https://pizzariamanager.azurewebsites.net/pizzariaManager/";
+  urlRoot = "http://pizzariamanager-jdetecnologias632825.codeanyapp.com/";
   var formMeiaPizza = {
     esconderBotoes: function() {
       $("#botoesTamanhoMeiaPizza").hide();
@@ -399,11 +399,8 @@ $(document).ready(function() {
       if(e.target.classList.contains("btn-finalizar")){
         finalizarPreparo(e.target);
       }
-	  if(e.target.getAttribute("id") == "aberto"){
        
-      }
 	  
-    });
     function finalizarPreparo(el) {
       var btnFinalizar = document.querySelectorAll(".btn-finalizar");
       var x = 0;

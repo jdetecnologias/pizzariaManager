@@ -16,10 +16,4 @@ class VerPedido extends MY_Controller {
 		$dataMenor = now("America/Sao_paulo")-86400;
 			$this->load->model("verPedidoModel");
 			$get = new verPedidoModel();
-			$resultAberto = $get->obterPedidos(1,$dataMenor);
-			$resultFinalizados = $get->obterPedidos(0,$dataMenor);
-			$resultCancelados = $get->obterPedidos(2,$dataMenor);
-				$this->load->view("verPedidoView",array("resultAberto"=>$resultAberto,"resultFinalizados"=>$resultFinalizados,"resultCancelados"=>$resultCancelados,"retorno"=>5));
-	}
 
-}
