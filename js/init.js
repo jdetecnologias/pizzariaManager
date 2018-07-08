@@ -12,6 +12,7 @@ $(document).ready(function() {
       return parseInt($("#pedidoPizzaMeia").attr("qtd"));
     }
   }
+  
   function verPedidos(){
     $.ajax({
       url:getUrl("verPedido/atualizarPagina"),
@@ -23,12 +24,6 @@ $(document).ready(function() {
     
     );
   }
-    function definirIntervaloPedidosEmAberto(){
-	var atualizarPagina = setInterval(function(){
-			verPedidos();
-			},10000);
-			return atualizarPagina;
-  }
   function getUrl(url) {
     return urlRoot + url;
   }
@@ -36,21 +31,39 @@ $(document).ready(function() {
   getURL = function getUr(url) {
     return urlRoot + url;
   }
-
+  function cadastrarViaAjax(){
+    var dados = {};
+    
+    var form  = document.getElementById("CadastrarClienteFo");
+    dados["uf"] = form.querySelector("#uf").value;
+    var inputs = form.querySelectorAll("input[type=text]");
+    var x =0;
+    while(inputs[x]){
+          dados[inputs[x].getAttribute("name")] = inputs[x].value;
+          x++;
+          }
+    return dados;
+  }
   function apagarDadosDoFormulario(form) {
-    var Elementos = ("input", "select");
+    var Elementos = ["input", "select","textarea"];
     var y = 0;
     while (Elementos[y]) {
+      
       var inputs = form.querySelectorAll(Elementos[y]);
-      var x = 0;
-      while (inputs[x]) {
-        inputs[x].value = "";
-        x++;
+      if(inputs == null){
+        
       }
-      y++;
-    }
+      else{
+          var x = 0;
+          while (inputs[x]) {
+            inputs[x].value = "";
+            x++;
+          }
+          y++;
+        }
+      }
   }
-
+  
   function getPrecosPizzaDB(tamanho) {
     var valorDaPizza;
     $.ajax({
@@ -80,21 +93,11 @@ $(document).ready(function() {
   }
   (function(e) {
     "use strict";
-	
-			
     if(document.querySelector("#visualizarPedidos") == null){
   
       }
-    else{	
-			var at = definirIntervaloPedidosEmAberto();
-			$(document).on("click","#aberto",function(){
-				clearInterval(at);
-				at = definirIntervaloPedidosEmAberto();
-			});
-			$(document).on("click",".limparIntervalo",function(){
-				clearInterval(at);
-			});
-			
+    else{
+      setInterval(function(){verPedidos();},10000);
     }
     if (document.getElementById("categoria") != null) {
       function haCampoPreco() {
@@ -399,8 +402,7 @@ $(document).ready(function() {
       if(e.target.classList.contains("btn-finalizar")){
         finalizarPreparo(e.target);
       }
-       
-	  
+    });
     function finalizarPreparo(el) {
       var btnFinalizar = document.querySelectorAll(".btn-finalizar");
       var x = 0;
@@ -518,8 +520,21 @@ $(document).ready(function() {
       contador--;
       $("#valor_total").html("R$ " + getValorTotal().toFixed(2));
     });
+    function validarTelefone(telefone){
+   
+      if(telefone.length<8 || telefone.length>9){
+        return false;
+      }
+      else{
+        return true;
+      }
+      
+    }
+    $("#cadastrarCliente").on("click",function(){
+     $("#CadastrarClienteFo #tel").val(modalCliente.telefone.val());
+    });
     $(".cep").on("blur", function() {
-      var paiDeTodos = $(this).parent();
+      var paiDeTodos = $(this).parent().parent();
       var id = paiDeTodos.attr("id");
       $(".complemento").val("");
       $.ajax({
@@ -537,54 +552,139 @@ $(document).ready(function() {
         }
       });
     });
-    
-    $("#telefonePedido").on('blur', function() {
-      var este = $(this);
-      var campoNome = $("#nomeInput");
-      var campoEnd = $("#endInput");
-      var campoBairro = $("#bairroInput");
-      var nomeCliente = $("#nomeCliente");
-      if (este.val() === "") {
-        getDadosCliente().setAttribute("status", 0);
-        limparInput("nomeInput", "endInput", "id_cliente", "bairroInput");
-        campoNome.attr("readOnly", true);
-        campoEnd.attr("readOnly", true);
-        campoBairro.attr("readOnly", true);
-        nomeCliente.html("");
-      } else {
-        var data = {
-          telefone: $(this).val()
-        };
+    $("#cadastroViaAjax button[type=submit]").on("click",function(e){
+      e.preventDefault();
+      var data = cadastrarViaAjax(); 
         $.ajax({
-          url: getUrl("exibir/getClienteByTel/"),
+          url: getUrl("cadastroCliente/cadastrarViaAjax/"),
           data: data,
           type: 'post',
           success: function(r) {
-            var campoDadosCliente = getDadosCliente();
-            if (r.status == 0) {
-              $("#dadosCliente").attr("cadastrarCliente", "true");
-              campoNome.val("");
-              campoEnd.val("");
-              campoNome.attr("readonly", false);
-              campoEnd.attr("readonly", false);
-              $("#id_cliente").val("");
-            } else if (r.status == 1) {
-              console.log(r);
-              $("#nomeCliente").html(r.nome);
-              $("#nomeInput").val(r.nome);
-              $("#endInput").val(r.end);
-              $("#bairroInput").val(r.bairro);
-              $("#id_cliente").val(r.id_cliente);
-              campoNome.attr("readonly", true);
-              campoEnd.attr("readonly", true);
+            if(r===0){
+              alert("Cliente não foi cadastrado.");
             }
-            getDadosCliente().setAttribute("status", r.status);
+            else{
+              alert("cadastrado com sucesso");
+              var form = document.querySelector("#CadastrarClienteFo");
+              apagarDadosDoFormulario(form);
+              $("#dadosClienteCadastrar .close").click();
+              $("#dadosDoCliente #telefonePedido").focusout();
+              $("#dadosDoCliente .click").blur();
+              modalCliente.inicio();
+            }
+            
           },
           error: function() {
-            alert("Erro em recuperar cliente");
+            alert("Erro ao tentar se comunicar com o servidor!");
           },
-          dataType: 'json'
+          
         });
+     
+    });
+    var modalCliente = {
+      telefone:$("#telefonePedido"),
+      campoNome:$("#nomeInput"),
+      campoEnd:$("#endInput"),
+      campoBairro:$("#bairroInput"),
+      nomeCliente:$("#nomeCliente"),
+      cadastrarCliente:$("#cadastrarCliente"),
+      idCliente:$("#id_cliente"),
+      inicio: function(){
+        apagarDadosDoFormulario(document.getElementById("dadosCliente"));
+         this.nomeCliente.html("");
+         this.cadastrarCliente.hide();
+         this.campoNome.show();
+         this.campoEnd.show();
+         this.campoNome.attr("readOnly", true);
+         this.campoEnd.attr("readOnly", true);
+         this.campoBairro.attr("readOnly", true);
+      },
+      naoCadastrado: function(){
+         this.campoNome.hide();
+         this.campoEnd.hide();
+         this.cadastrarCliente.show();
+         this.campoNome.val("");
+         this.campoEnd.val("");
+         this.idCliente.val("");
+      },
+      cadastrado: function(r){
+              this.telefone.val(r.telefone);
+              this.nomeCliente.html(r.nome);
+              this.campoNome.val(r.nome);
+              this.campoEnd.val(r.end);
+              this.campoBairro.val(r.bairro);
+              this.idCliente.val(r.id_cliente);
+              this.campoNome.attr("readonly", true);
+              this.campoEnd.attr("readonly", true);
+      }
+    }
+   $("#telefonePedido").on("keyup",function(e){
+     console.log(e.keyCode);
+      if(e.keyCode > 95 && e.keyCode < 106){
+      var numero = $(this).val();
+      var numeroCru  = "";
+      var x = 0;
+      while(x<numero.length){
+          if(!isNaN(numero[x])){
+            numeroCru +=numero[x];
+          }
+        x++;
+      }
+     $(this).attr("numero",numeroCru);
+      var qtd = numeroCru.length;
+      
+      switch(qtd){
+       
+        case 4:
+          if(numeroCru[1]<7){
+            $(this).val(numero+"-");
+          }
+          break;
+           case 5:
+          if(numeroCru[1]>7){
+            $(this).val(numero+"-");
+          }
+          break;
+          
+      }
+      }
+    });
+  
+    $("#telefonePedido").on('blur', function(){
+      var este = $(this);
+      if(validarTelefone(este.attr("numero"))){
+          if (este.val() === "") {
+            getDadosCliente().setAttribute("status", 0);
+            modalCliente.inicio();
+          } //if
+          else {
+            var data = {
+              telefone: parseInt(este.attr("numero"))
+            }
+            $.ajax({
+              url: getUrl("exibir/getClienteByTel/"),
+              data: data,
+              type: 'post',
+              success: function(r) {
+                var campoDadosCliente = getDadosCliente();
+                if (r.status === 0) {
+                  $("#dadosCliente").attr("cadastrarCliente", "true");
+                 modalCliente.naoCadastrado();
+                } else if (r.status == 1) {
+                   modalCliente.inicio();
+                   modalCliente.cadastrado(r);
+                }
+                getDadosCliente().setAttribute("status", r.status);
+              },
+              error: function() {
+                alert("Erro em recuperar cliente");
+              },
+              dataType: 'json'
+            });//$.ajax
+          }//else
+      } // if validarTelefone
+      else{
+        alert("Favor preencher o telefone corretamente.");
       }
     });
   })();

@@ -26,7 +26,7 @@ class Exibir extends MY_Controller {
         $endereco = $data->logradouro.", ".$data->complemento.", ".$data->bairro.", ".$data->cidade.", ".$data->uf;
         $dados = array("status"=>1,"nome"=>$data->nome,
                        "end"=>$endereco,
-                       "id_cliente"=>$data->id);
+                       "id_cliente"=>$data->id,"telefone"=>$data->telefone);
 				echo json_encode($dados);
 			}
 			

@@ -14,6 +14,7 @@
                           
                             </div> 
                        </col>   
+                           
                            <form method="post" action="#<?php /*echo base_url('anotarPedido/finalizar');*/?>">
                               <div id="dadosCliente" class="modal" cadastrarCliente="false">
                                 <div class="modal-dialog">
@@ -23,9 +24,9 @@
                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                                      </div>
                                     <div class="modal-body">
-                                          
+                                    <span id="cadastrarCliente" class="btn btn-primary form-control" style="display:none" data-toggle="modal" data-target="#dadosClienteCadastrar">Cadastrar Cliente</span>
                                     <label for="telefonePedido">Telefone</label>
-                                        <input type="text" id="telefonePedido" name="telefone" class="form-control" status="0"/>
+                                        <input type="text" id="telefonePedido" name="telefone" placeholder="8 ou 9 dígitos" numero="" class="form-control" status="0"/>
                                     <label id="nome" for="nomeImput">Nome</label>
                                         <input type="text" id="nomeInput" class="form-control" readonly="true">
                                     <label for="endInput">Endereco</label>
@@ -105,3 +106,7 @@
                             </div>
                           </div> 
                         </div>
+                        <div id="cadastroViaAjax">
+                          <?php $this->load->view("telasCadastro/modalCadastrarClienteView");?>
+                        </div>
+        

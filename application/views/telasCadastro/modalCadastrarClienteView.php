@@ -6,12 +6,12 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
          </div>
          <div class="modal-body">
-           <div class="form-group">
-           <form name="CadastrarCliente" id="CadastrarClienteFo" method="post" action="<?= base_url('cadastroCliente/cadastrar');?>">
+           <form name="CadastrarCliente" id="CadastrarClienteFo" method="post" action="<?=                    base_url('cadastroCliente/cadastrar');?>">
+              <div class="form-group">
               <?php 
                 $this->load->view("telasCadastro/formularioPadraoCadastro");
               ?>
-           </div>
+              </div>
              <div>
                <button class="btn btn-primary" type="submit">
                  Gravar

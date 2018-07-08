@@ -70,6 +70,5 @@
 <script src="<?php echo base_url('/js/jquery3.3.1.js');?>"></script>
 <script src="<?php echo base_url('/js/bootstrap.min.js');?>"></script>
 <script src="<?php echo base_url('/js/init.js');?>" text="javascript/text" language="javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
