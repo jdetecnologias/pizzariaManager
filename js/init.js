@@ -530,6 +530,34 @@ $(document).ready(function() {
       }
       
     }
+    function criarMascara(telefone){
+      var numero = telefone.val() || telefone.value;
+      var numeroCru  = "";
+      var x = 0;
+      while(x<numero.length){
+          if(!isNaN(numero[x])){
+            numeroCru +=numero[x];
+          }
+        x++;
+      }
+     $(this).attr("numero",numeroCru);
+      var qtd = numeroCru.length;
+      
+      switch(qtd){
+       
+        case 4:
+          if(numeroCru[1]<7){
+            telefone.val(numero+"-");
+          }
+          break;
+           case 5:
+          if(numeroCru[1]>7){
+            telefone.val(numero+"-");
+          }
+          break;
+          
+      }
+    }
     $("#cadastrarCliente").on("click",function(){
      $("#CadastrarClienteFo #tel").val(modalCliente.telefone.val());
     });
@@ -546,6 +574,7 @@ $(document).ready(function() {
           $("#" + id + " .bairro").val(end.bairro);
           $("#" + id + " .cidade").val(end.localidade);
           $("#" + id + " .uf").val(end.uf);
+         
         },
         error: function() {
           alert("CEP não encontrado");
@@ -568,9 +597,9 @@ $(document).ready(function() {
               var form = document.querySelector("#CadastrarClienteFo");
               apagarDadosDoFormulario(form);
               $("#dadosClienteCadastrar .close").click();
-              $("#dadosDoCliente #telefonePedido").focusout();
-              $("#dadosDoCliente .click").blur();
-              modalCliente.inicio();
+              modalCliente.telefone.focus();
+              modalCliente.campoNome.focus();
+              
             }
             
           },
@@ -589,8 +618,20 @@ $(document).ready(function() {
       nomeCliente:$("#nomeCliente"),
       cadastrarCliente:$("#cadastrarCliente"),
       idCliente:$("#id_cliente"),
+      editarCliente:$("#btnEditarCliente"),
+      inputCadastros:function(){
+        var ele = [];
+        var input = document.querySelector("#editarCliente input[type=text]");
+        var x = 0 ;
+        while(input[x]){
+          ele[x] = input[x].getAttribute("name");
+          x++;
+        }
+        return ele;
+      },
       inicio: function(){
         apagarDadosDoFormulario(document.getElementById("dadosCliente"));
+        
          this.nomeCliente.html("");
          this.cadastrarCliente.hide();
          this.campoNome.show();
@@ -608,58 +649,54 @@ $(document).ready(function() {
          this.idCliente.val("");
       },
       cadastrado: function(r){
+              this.editarCliente.show();
               this.telefone.val(r.telefone);
               this.nomeCliente.html(r.nome);
               this.campoNome.val(r.nome);
-              this.campoEnd.val(r.end);
+              this.campoEnd.val(r.logradouro+
+                                ", "+r.complemento+
+                                ", "+r.bairro+
+                               ", "+r.cidade+
+                               ", "+r.uf);
               this.campoBairro.val(r.bairro);
               this.idCliente.val(r.id_cliente);
+              this.editarCliente.attr("idCliente",r.id_cliente);
               this.campoNome.attr("readonly", true);
               this.campoEnd.attr("readonly", true);
+      },
+      getDadosCliente:function(id){
+        $.ajax({
+          url: getUrl("exibir/getClienteByTel/"),
+          type:"post",
+          success:function(r){
+            var campoForm = this.inputCadastros();
+            campoForm.forEach(function(){
+              this.value = r[this.getAttribute("name")];
+            });
+          }
+        });
       }
     }
+    function contarCaracTel(numero){
+      $("#qtdCarac").html(numero.length);
+    }
    $("#telefonePedido").on("keyup",function(e){
-     console.log(e.keyCode);
+    contarCaracTel($(this).val());
       if(e.keyCode > 95 && e.keyCode < 106){
-      var numero = $(this).val();
-      var numeroCru  = "";
-      var x = 0;
-      while(x<numero.length){
-          if(!isNaN(numero[x])){
-            numeroCru +=numero[x];
-          }
-        x++;
-      }
-     $(this).attr("numero",numeroCru);
-      var qtd = numeroCru.length;
-      
-      switch(qtd){
-       
-        case 4:
-          if(numeroCru[1]<7){
-            $(this).val(numero+"-");
-          }
-          break;
-           case 5:
-          if(numeroCru[1]>7){
-            $(this).val(numero+"-");
-          }
-          break;
-          
-      }
+        
       }
     });
   
     $("#telefonePedido").on('blur', function(){
       var este = $(this);
-      if(validarTelefone(este.attr("numero"))){
+      if(validarTelefone(este.val())){
           if (este.val() === "") {
             getDadosCliente().setAttribute("status", 0);
             modalCliente.inicio();
           } //if
           else {
             var data = {
-              telefone: parseInt(este.attr("numero"))
+              telefone:este.val()
             }
             $.ajax({
               url: getUrl("exibir/getClienteByTel/"),
@@ -687,5 +724,85 @@ $(document).ready(function() {
         alert("Favor preencher o telefone corretamente.");
       }
     });
+    function acionarEl(elemento,callback){
+       var x = 0; 
+      while(elemento[x]){
+          callback(elemento[x]);
+x++;
+        }
+       
+    }
+   var campoMensagem = document.getElementById("mensagens");
+   var radio = document.querySelectorAll(".linha input[type=radio]");
+    var deletarCliente = document.getElementById("deletarCliente");
+    var editarCliente = document.getElementById("editarCliente");
+    (function(){
+      var id = null;
+    
+      
+      $("#deletarCliente").on("click",function(){
+          acionarEl(radio,function(el){  
+        if(el.checked){
+            id = el.value;
+           }
+      });
+       if(id != null){
+           var resposta = confirm("Você deseja realmente deletar este cliente");    
+
+          if(resposta){
+            $.ajax({
+              url: getURL('cadastroCliente/deletarViaAjax'),
+              data    :{id:id},
+              type    :"post",
+              success : function(r){
+                  if(r == 1){
+                   alert("Cliente deletado com sucesso!");
+                  }
+                else if(r==0){
+                   alert("Cliente não foi deletado!");
+                }
+                
+              },
+              error: function(){
+                  alert("Erro ao tentar deletar o cliente");
+              } 
+            });
+          }
+        }
+       
+      });
+      
+    })();
+  
+  $("#btnEditarCliente").on("click",function(){
+      modalCliente.getDadosCliente($(this).attr("idCliente"));
+  });
+  
+  
+  
+  
+  
+    $("#editarCliente").on("click",function(){
+      modalCliente.getDadosCliente($(this).attr("idCliente"));
+      /*var campoEdit = document.querySelectorAll("#dadosClienteEditar");
+      acionarEl(radio,function(el){
+        if(el.checked){
+         var tr = el.parentNode.parentNode;
+          var td = tr.querySelectorAll("td");
+           
+        acionarEl(td,function(ele){
+          
+            acionarEl(campoEdit,function(elem){
+             
+              elem.querySelector("#"+ele.getAttribute("class")).value = ele.textContent;
+              
+            });
+        });
+          return;
+        }
+      });*/
+   
+
+});
   })();
 });

@@ -2,7 +2,10 @@
 html,body {
 overflow-x:hidden;/*tirar nav botom*/
 backgrou nd-image: -webkit-linear-gradient(left, #000000 0%, #33F8FF 50%, #000000 100%);
-text-transform: uppercase;
+text-transform: upperca se;
+}
+#controles #btnEditarCliente{
+  display:none;
 }
 /* Botao Toggle  */
 
@@ -27,6 +30,12 @@ text-transform: uppercase;
 .atrasado {
   color:red;
  
+}
+#controles #btnEditarCliente{
+  display:none;
+}
+#controles #btnCadastrarCliente{
+  display:none;
 }
 
 /* navbar-leteral  */

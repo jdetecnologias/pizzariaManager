@@ -23,10 +23,16 @@ class Exibir extends MY_Controller {
 		$status = array("status"=>0);
 		if($cliente){
 			foreach($cliente as $data){
-        $endereco = $data->logradouro.", ".$data->complemento.", ".$data->bairro.", ".$data->cidade.", ".$data->uf;
+        
         $dados = array("status"=>1,"nome"=>$data->nome,
-                       "end"=>$endereco,
-                       "id_cliente"=>$data->id,"telefone"=>$data->telefone);
+                       "id_cliente"=>$data->id,
+                       "telefone"=>$data->telefone,
+                      "logradouro"=>$data->logradouro,
+                       "complemento"=>$data->complemento,
+                       "bairro"=>$data->bairro,
+                       "cidade"=>$data->cidade,
+                       "uf"=>$data->uf
+                      );
 				echo json_encode($dados);
 			}
 			

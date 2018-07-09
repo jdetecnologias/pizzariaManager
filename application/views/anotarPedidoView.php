@@ -7,7 +7,7 @@
                         <div class="col-12 row">
                             <div class="col-5">
                                 <button class="btn-primary btn-sm btn-block text-center mt-2" data-toggle="modal" data-target="#dadosCliente">
-                                    <i class="far fa-address-card fa-lg"></i> CLIENTE
+                                    <i class="far fa-address-card fa-lg"></i>CLIENTE
                                 </button>
                             </div> 
                            <div id="nomeCliente" class="col-7 text-center">
@@ -24,8 +24,12 @@
                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                                      </div>
                                     <div class="modal-body">
-                                    <span id="cadastrarCliente" class="btn btn-primary form-control" style="display:none" data-toggle="modal" data-target="#dadosClienteCadastrar">Cadastrar Cliente</span>
-                                    <label for="telefonePedido">Telefone</label>
+                                      <div id="controles">
+                                        <span id="btnEditarCliente" idCliente="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#dadosClienteEditar"><i class="fa fa-edit"></i> Editar Cliente</span>
+                                    <span id="btnCadastrarCliente" class="btn btn-sm btn-primary" style="display:n ne" data-toggle="modal" data-target="#dadosClienteCadastrar"><i class="fa fa-plus-circle"></i> Cadastrar Cliente</span>
+                                      </div>
+                                       
+                                    <label for="telefonePedido">Telefone: Qtd de caracteres (<span id="qtdCarac">0</span>)</label>
                                         <input type="text" id="telefonePedido" name="telefone" placeholder="8 ou 9 dígitos" numero="" class="form-control" status="0"/>
                                     <label id="nome" for="nomeImput">Nome</label>
                                         <input type="text" id="nomeInput" class="form-control" readonly="true">
@@ -109,4 +113,7 @@
                         <div id="cadastroViaAjax">
                           <?php $this->load->view("telasCadastro/modalCadastrarClienteView");?>
                         </div>
+   
+                          <?php $this->load->view("telasCadastro/modalEditarClienteView");?>
+
         
