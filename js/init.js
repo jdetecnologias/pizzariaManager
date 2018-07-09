@@ -619,16 +619,6 @@ $(document).ready(function() {
       cadastrarCliente:$("#cadastrarCliente"),
       idCliente:$("#id_cliente"),
       editarCliente:$("#btnEditarCliente"),
-      inputCadastros:function(){
-        var ele = [];
-        var input = document.querySelector("#editarCliente input[type=text]");
-        var x = 0 ;
-        while(input[x]){
-          ele[x] = input[x].getAttribute("name");
-          x++;
-        }
-        return ele;
-      },
       inicio: function(){
         apagarDadosDoFormulario(document.getElementById("dadosCliente"));
         
@@ -660,19 +650,37 @@ $(document).ready(function() {
                                ", "+r.uf);
               this.campoBairro.val(r.bairro);
               this.idCliente.val(r.id_cliente);
-              this.editarCliente.attr("idCliente",r.id_cliente);
+              this.editarCliente.attr("idCliente",r.telefone);
               this.campoNome.attr("readonly", true);
               this.campoEnd.attr("readonly", true);
       },
-      getDadosCliente:function(id){
+      form: function(){
+        
+        var ele = [];
+        var input = document.querySelectorAll("#editarCliente input");
+        var x = 0 ;
+        while(input[x]){
+          ele[x] = input[x];
+          x++;
+        }
+        
+        return ele;
+      },
+      getDadosCliente:function(telefone){
         $.ajax({
           url: getUrl("exibir/getClienteByTel/"),
+          data:{telefone:telefone},
           type:"post",
           success:function(r){
-            var campoForm = this.inputCadastros();
-            campoForm.forEach(function(){
-              this.value = r[this.getAttribute("name")];
-            });
+            console.log(r);
+           
+            var campoForm = modalCliente.form();
+            var x =0;
+            while(campoForm[x]){
+                  campoForm[x].value = r.nome;
+              //console.log(campoForm[x].getAttribute("name"));
+                  x++;
+                  }
           }
         });
       }
@@ -775,7 +783,7 @@ x++;
     })();
   
   $("#btnEditarCliente").on("click",function(){
-      modalCliente.getDadosCliente($(this).attr("idCliente"));
+      modalCliente.getDadosCliente(parseInt($(this).attr("idCliente")));
   });
   
   
@@ -784,7 +792,7 @@ x++;
   
     $("#editarCliente").on("click",function(){
       modalCliente.getDadosCliente($(this).attr("idCliente"));
-      /*var campoEdit = document.querySelectorAll("#dadosClienteEditar");
+      var campoEdit = document.querySelectorAll("#dadosClienteEditar");
       acionarEl(radio,function(el){
         if(el.checked){
          var tr = el.parentNode.parentNode;
@@ -800,7 +808,7 @@ x++;
         });
           return;
         }
-      });*/
+      });
    
 
 });
