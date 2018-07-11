@@ -31,19 +31,7 @@ $(document).ready(function() {
   getURL = function getUr(url) {
     return urlRoot + url;
   }
-  function cadastrarViaAjax(){
-    var dados = {};
-    
-    var form  = document.getElementById("CadastrarClienteFo");
-    dados["uf"] = form.querySelector("#uf").value;
-    var inputs = form.querySelectorAll("input[type=text]");
-    var x =0;
-    while(inputs[x]){
-          dados[inputs[x].getAttribute("name")] = inputs[x].value;
-          x++;
-          }
-    return dados;
-  }
+
   function apagarDadosDoFormulario(form) {
     var Elementos = ["input", "select","textarea"];
     var y = 0;
@@ -558,22 +546,20 @@ $(document).ready(function() {
           
       }
     }
-    $("#cadastrarCliente").on("click",function(){
+    $("#btnCadastrarCliente").on("click",function(){
      $("#CadastrarClienteFo #tel").val(modalCliente.telefone.val());
     });
     $(".cep").on("blur", function() {
-      var paiDeTodos = $(this).parent().parent();
-      var id = paiDeTodos.attr("id");
       $(".complemento").val("");
       $.ajax({
         url: "https://viacep.com.br/ws/" + $(this).val() + "/json/",
         dataType: "json",
         type: "get",
         success: function(end) {
-          $("#" + id + " .end").val(end.logradouro);
-          $("#" + id + " .bairro").val(end.bairro);
-          $("#" + id + " .cidade").val(end.localidade);
-          $("#" + id + " .uf").val(end.uf);
+          $("#editarCliente .end").val(end.logradouro);
+          $("#editarCliente .bairro").val(end.bairro);
+          $("#editarCliente .cidade").val(end.localidade);
+          $("#editarCliente .uf").val(end.uf);
          
         },
         error: function() {
@@ -583,7 +569,8 @@ $(document).ready(function() {
     });
     $("#cadastroViaAjax button[type=submit]").on("click",function(e){
       e.preventDefault();
-      var data = cadastrarViaAjax(); 
+      var data = cadastro.getDadosDoFormulario(); 
+      console.log(data);
         $.ajax({
           url: getUrl("cadastroCliente/cadastrarViaAjax/"),
           data: data,
@@ -610,13 +597,97 @@ $(document).ready(function() {
         });
      
     });
+    $("#editarViaAjax button[type=submit]").on("click",function(e){
+      e.preventDefault();
+      var data = cadastro.getDadosDoFormulario(); 
+      console.log(data);
+        $.ajax({
+          url: getUrl("cadastroCliente/editarViaAjax/"),
+          data: data,
+          type: 'post',
+          success: function(r) {
+            if(r===0){
+              alert("Cadastro do cliente não foi modificado.");
+            }
+            else if(r===1){
+              alert("Modificação realizada com sucesso");
+              var form = document.querySelector("#editarCliente");
+              apagarDadosDoFormulario(form);
+              $("#dadosClienteEditar .close").click();
+              modalCliente.telefone.focus();
+              modalCliente.campoNome.focus();
+              
+            }
+            else if(r===9){
+              alert("Dados faltantes!");
+            }
+            
+            
+          },
+          error: function() {
+            alert("Erro ao tentar se comunicar com o servidor!");
+          },
+          
+        });
+     
+    });
+      
+    var cadastro = { 
+      formEdit: document.getElementById("editarCliente"),
+      uf:$("#editarCliente #uf"),
+      idCliente: $("#editarCliente #idCliente"),
+      form: function(){
+        
+        var ele = [];
+        var input = document.querySelectorAll("#editarCliente input");
+        var x = 0 ;
+        while(input[x]){
+          ele[x] = input[x];
+          x++;
+        }
+        
+        return ele;
+      },
+      getDadosDoFormulario: function (){
+    var dados = {};
+    
+    var form  = document.getElementById("CadastrarClienteFo");
+    dados["uf"] = form.querySelector("#uf").value;
+    var inputs = form.querySelectorAll("input[type=text]");
+    var x =0;
+    while(inputs[x]){
+          dados[inputs[x].getAttribute("name")] = inputs[x].value;
+          x++;
+          }
+    return dados;
+  },
+      GetDadosClienteToEdit:function(telefone){
+        $.ajax({
+          url: getUrl("exibir/getClienteByTel/"),
+          data:{telefone:telefone},
+          type:"post",
+          dataType:"json",
+          success:function(res){
+            var campoForm = cadastro.form();
+            var x =0;
+            while(campoForm[x]){
+                  campoForm[x].value = res[campoForm[x].getAttribute("name")];
+                  x++;
+                  }
+            console.log(this.uf);
+            this.uf.val(res.uf);
+          }
+        });
+      }
+    }
+    
     var modalCliente = {
       telefone:$("#telefonePedido"),
       campoNome:$("#nomeInput"),
       campoEnd:$("#endInput"),
       campoBairro:$("#bairroInput"),
       nomeCliente:$("#nomeCliente"),
-      cadastrarCliente:$("#cadastrarCliente"),
+      cadastrarCliente:$("#btnCadastrarCliente"),
       idCliente:$("#id_cliente"),
       editarCliente:$("#btnEditarCliente"),
       inicio: function(){
@@ -637,6 +708,7 @@ $(document).ready(function() {
          this.campoNome.val("");
          this.campoEnd.val("");
          this.idCliente.val("");
+         this.editarCliente.hide();
       },
       cadastrado: function(r){
               this.editarCliente.show();
@@ -653,36 +725,6 @@ $(document).ready(function() {
               this.editarCliente.attr("idCliente",r.telefone);
               this.campoNome.attr("readonly", true);
               this.campoEnd.attr("readonly", true);
-      },
-      form: function(){
-        
-        var ele = [];
-        var input = document.querySelectorAll("#editarCliente input");
-        var x = 0 ;
-        while(input[x]){
-          ele[x] = input[x];
-          x++;
-        }
-        
-        return ele;
-      },
-      getDadosCliente:function(telefone){
-        $.ajax({
-          url: getUrl("exibir/getClienteByTel/"),
-          data:{telefone:telefone},
-          type:"post",
-          success:function(r){
-            console.log(r);
-           
-            var campoForm = modalCliente.form();
-            var x =0;
-            while(campoForm[x]){
-                  campoForm[x].value = r.nome;
-              //console.log(campoForm[x].getAttribute("name"));
-                  x++;
-                  }
-          }
-        });
       }
     }
     function contarCaracTel(numero){
@@ -783,15 +825,9 @@ x++;
     })();
   
   $("#btnEditarCliente").on("click",function(){
-      modalCliente.getDadosCliente(parseInt($(this).attr("idCliente")));
+     cadastro.GetDadosClienteToEdit(parseInt($(this).attr("idCliente")));
   });
-  
-  
-  
-  
-  
     $("#editarCliente").on("click",function(){
-      modalCliente.getDadosCliente($(this).attr("idCliente"));
       var campoEdit = document.querySelectorAll("#dadosClienteEditar");
       acionarEl(radio,function(el){
         if(el.checked){

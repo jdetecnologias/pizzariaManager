@@ -31,7 +31,8 @@ class Exibir extends MY_Controller {
                        "complemento"=>$data->complemento,
                        "bairro"=>$data->bairro,
                        "cidade"=>$data->cidade,
-                       "uf"=>$data->uf
+                       "uf"=>$data->uf,
+                       "cep"=>$data->cep
                       );
 				echo json_encode($dados);
 			}

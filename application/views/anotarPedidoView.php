@@ -113,7 +113,7 @@
                         <div id="cadastroViaAjax">
                           <?php $this->load->view("telasCadastro/modalCadastrarClienteView");?>
                         </div>
-   
+                         <div id="editarViaAjax">
                           <?php $this->load->view("telasCadastro/modalEditarClienteView");?>
-
+                        </div>
         

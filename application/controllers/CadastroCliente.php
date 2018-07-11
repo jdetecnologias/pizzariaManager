@@ -6,18 +6,18 @@ class CadastroCliente extends MY_Controller {
     $this->load->library("form_validation");
 		
     $this->form_validation->set_rules("nome","","required");
-    $this->form_validation->set_rules("end","","required");
-    $this->form_validation->set_rules("tel","","required");
-     $this->form_validation->set_rules("complemento","","required");
+    $this->form_validation->set_rules("logradouro","","required");
+    $this->form_validation->set_rules("telefone","","required");
+    $this->form_validation->set_rules("complemento","","required");
     $this->form_validation->set_rules("bairro","","required");
     $this->form_validation->set_rules("cidade","","required");
     $this->form_validation->set_rules("uf","","required");
     $this->form_validation->set_rules("cep","","required");
       if($this->form_validation->run()){
         $nome = $this->input->post("nome");
-        $end = $this->input->post("end");
+        $end = $this->input->post("logradouro");
         $complemento = $this->input->post("complemento");
-        $tel = $this->input->post("tel");
+        $tel = $this->input->post("telefone");
         $bairro = $this->input->post("bairro");
         $cidade = $this->input->post("cidade");
         $uf = $this->input->post("uf");
@@ -98,6 +98,26 @@ class CadastroCliente extends MY_Controller {
       $msn = "Preencher todos os campos";
     }
 		$this->load->view('inicio',array("retorno"=>3,"msn"=>$msn));
+	}
+  
+  	public function editarViaAjax(){
+    $dados = $this->cad();
+    if($dados != false){
+		$this->load->model('CadastroModel');
+		
+		$cad = new cadastroModel();
+      $id = $this->input->post("idCliente");
+		$result = $cad->editar($id,$dados);
+		if($result){
+			echo 1;
+		}	
+		else{
+			echo 0;
+		}
+      }
+    else{
+      echo 9;
+    }
 	}
   
 	public function deletar($id){
