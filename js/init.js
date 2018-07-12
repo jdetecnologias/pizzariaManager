@@ -6,7 +6,7 @@ $(document).ready(function() {
     },
     mostrarBotoes: function() {
       $("#botoesTamanhoMeiaPizza").show();
-      console.log("mostrarBotoes");
+     
     },
     getQtd: function() {
       return parseInt($("#pedidoPizzaMeia").attr("qtd"));
@@ -62,7 +62,7 @@ $(document).ready(function() {
       type: 'post',
       success: function(r) {
         this.valorDaPizza = r;
-        console.log(this.valorDaPizza);
+       
       },
       error: function() {
         this.valorDaPizza = 30.0;
@@ -71,7 +71,7 @@ $(document).ready(function() {
     // return preco;
   }
   var pr = getPrecosPizzaDB('M');
-  console.log("Tamanho M preço R$: " + pr);
+ 
 
   function arredondarNumeros(numero, qtdCasasDecimais) {
     var multiplicador = Math.pow(10, qtdCasasDecimais);
@@ -551,15 +551,17 @@ $(document).ready(function() {
     });
     $(".cep").on("blur", function() {
       $(".complemento").val("");
+      var cep = $(this).val();
+      var idForm = $(this).parents("form").attr("id");
       $.ajax({
-        url: "https://viacep.com.br/ws/" + $(this).val() + "/json/",
+        url: "https://viacep.com.br/ws/" + cep + "/json/",
         dataType: "json",
         type: "get",
         success: function(end) {
-          $("#editarCliente .end").val(end.logradouro);
-          $("#editarCliente .bairro").val(end.bairro);
-          $("#editarCliente .cidade").val(end.localidade);
-          $("#editarCliente .uf").val(end.uf);
+          $("#"+idForm+" .end").val(end.logradouro);
+          $("#"+idForm+" .bairro").val(end.bairro);
+          $("#"+idForm+" .cidade").val(end.localidade);
+          $("#"+idForm+" .uf").val(end.uf);
          
         },
         error: function() {
@@ -569,8 +571,8 @@ $(document).ready(function() {
     });
     $("#cadastroViaAjax button[type=submit]").on("click",function(e){
       e.preventDefault();
-      var data = cadastro.getDadosDoFormulario(); 
-      console.log(data);
+      var data = $(this).parents("form").serialize(); 
+   
         $.ajax({
           url: getUrl("cadastroCliente/cadastrarViaAjax/"),
           data: data,
@@ -599,17 +601,18 @@ $(document).ready(function() {
     });
     $("#editarViaAjax button[type=submit]").on("click",function(e){
       e.preventDefault();
-      var data = cadastro.getDadosDoFormulario(); 
-      console.log(data);
+      var data = $("#editarCliente").serialize(); 
+     
         $.ajax({
           url: getUrl("cadastroCliente/editarViaAjax/"),
           data: data,
           type: 'post',
           success: function(r) {
-            if(r===0){
+            console.log(r);
+            if(r==0){
               alert("Cadastro do cliente não foi modificado.");
             }
-            else if(r===1){
+            else if(r==1){
               alert("Modificação realizada com sucesso");
               var form = document.querySelector("#editarCliente");
               apagarDadosDoFormulario(form);
@@ -618,7 +621,7 @@ $(document).ready(function() {
               modalCliente.campoNome.focus();
               
             }
-            else if(r===9){
+            else if(r==9){
               alert("Dados faltantes!");
             }
             
@@ -648,10 +651,10 @@ $(document).ready(function() {
         
         return ele;
       },
-      getDadosDoFormulario: function (){
+      getDadosDoFormulario: function (form){
     var dados = {};
     
-    var form  = document.getElementById("CadastrarClienteFo");
+    
     dados["uf"] = form.querySelector("#uf").value;
     var inputs = form.querySelectorAll("input[type=text]");
     var x =0;
@@ -674,8 +677,8 @@ $(document).ready(function() {
                   campoForm[x].value = res[campoForm[x].getAttribute("name")];
                   x++;
                   }
-            console.log(this.uf);
-            this.uf.val(res.uf);
+            cadastro.uf.val(res["uf"]);
+            cadastro.idCliente.val(res["id_cliente"]);
           }
         });
       }
