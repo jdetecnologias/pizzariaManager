@@ -132,14 +132,14 @@ text-transform: upperca se;
 	width: 100%;
 }
 .navbar{
-	background:rgba(158,151,158,0.01);
+	background:rgba(158,151,158,0.9);
 }
 #div-logo{
-  width:125px;
   height:60px;
-  padding:auto;
-  margin:auto;
   bor der:1px solid black;
+}
+a {
+  color:none;
 }
 .img-logo{
 	width: 100%;
@@ -153,6 +153,35 @@ text-transform: upperca se;
 	background-size:contain ;/* e contain coloca o mesmo tamanho da classe colocar uma imagen e definir o tamanho*/
 	color: transparent;	
   bor der:1px solid black;
+}
+#topo{
+  height:100px;
+}
+#menuPrincipal .active {
+  padding-bottom:0;!important
+  background-color:#b6d0e9;!important
+  
+}
+#menuPrincipal .nav-item {
+  padding-bottom:0;!important
+  background-color:#b6d0e9;!important
+  
+}
+#menuPrincipal{
+  height:30px;!important
+}
+#navbarSite .tab-content{
+  background-color:#b6d0e9;!important
+  height:100%;!important
+}
+#menuPrincipal .fa{
+  color:7CFC00;!important
+}
+#menuPrincipal .nav-item{
+  height:31px;!important
+}
+#menuPrincipal .nav-link{
+  padding-top:1px;!important
 }
 #div-cardastro-cardapio-pedido{
 	background-image: -webkit-linear-gradient(left, #ffffff 0%, #F6F6F6 47%, #ededed 100%);

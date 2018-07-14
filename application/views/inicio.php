@@ -13,15 +13,15 @@
 </head>
 <body>
 <!--Topo com logo -->
-	<nav class="navbar  navbar-expand-lg navbar-dark bg-primary" >
+	<nav>
 		<div class="container-fluid tipografia-navbar col-md-12"  style="bor der:1px solid yellow;">
      		  <?php $this->load->view("topoView");?>
       </div>
 	</nav>
-	<div id="principal" class="col-md-12 row  ">
+	<!--<div id="principal" class="col-md-12 row  ">
     <div id="menu-lateral" class="col-md-2 mt-3 border border-primary rounded fixed-left">
-   <?php $this->load->view("menuLateralView");?>   
-    </div>
+   <?//php $this->load->view("menuLateralView");?>   
+    </div>-->
 	 
     <div id="content" class="col-md-10 mt-3 border border-primary rounded">             
 			<div id="mensagens">
