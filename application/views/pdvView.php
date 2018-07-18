@@ -13,17 +13,11 @@
 </head>
 <body>
 <!--Topo com logo -->
-	<nav class="navbar  navbar-expand-lg navbar-dark bg-primary" >
-		<div class="container-fluid tipografia-navbar col-md-12"  style="bor der:1px solid yellow;">
-     		  <?php $this->load->view("topoView");?>
-      </div>
-	</nav>
-	<div id="principal" class="col-md-12 row  ">
-    <div id="menu-lateral" class="col-md-2 mt-3 border border-primary rounded fixed-left">
-   <?php $this->load->view("menuLateralView");?>   
-    </div>
-	 
-    <div id="content" class="col-md-10 mt-3 border border-primary rounded">             
+	<div id="principal" class="container">   
+    <h1 class="text-center">
+      Ponto de vendas
+    </h1>
+    <div id="content" class="col-md-12 mt-3 border border-primary rounded">             
 			<div id="mensagens">
 				<?php if(isset($msn)){echo $msn;}?>
 			</div>
@@ -33,25 +27,7 @@
 					  case 1:
 					  $this->load->view("anotarPedidoView");
 					break;
-            case 2:
-            $this->load->view("cadastrarClienteView");
-            break;
-            case 3:
-            $this->load->view("listarClientesView");
-            break;
-					case 5:
-					  $this->load->view("verPedidoView");
-					break;
-          case 6:
-					  $this->load->view("verPedidoView");
-					break;
-					
-         case 7:
-					  $this->load->view("cadastrarProdutoView");
-					break;
-          case 8:
-					  $this->load->view("cadastrarMesaView");
-					break;
+           
 					}
 			}	
 			if(isset ($dados)){
@@ -65,11 +41,6 @@
 		</div>
 	</div>
     <!-- /Parte Principal-->
-	<div id="footer" class="col-xs-12 row">
-	  <div class="col-sm-12">Websoft factory</div>
-    
-</div>
-
 <script src="<?php echo base_url('/js/jquery3.3.1.js');?>"></script>
 <script src="<?php echo base_url('/js/bootstrap.min.js');?>"></script>
 <script src="<?php echo base_url('/js/init.js');?>" text="javascript/text" language="javascript"></script>

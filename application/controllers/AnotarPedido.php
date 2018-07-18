@@ -10,7 +10,7 @@ class AnotarPedido extends MY_Controller {
 		$prod = $preparar->getProdutos();
 
     $categorias = $preparar->getCategoriaProdutos();
-		$this->load->view('inicio',array('retorno'=>1,'prod'=>$prod,'categorias'=>$categorias));
+		$this->load->view('pdvView',array('retorno'=>1,'prod'=>$prod,'categorias'=>$categorias));
    
    
   }

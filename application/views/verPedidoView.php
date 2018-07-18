@@ -1,4 +1,4 @@
-<div id="visualizarPedidos" class="col-md-8 row">
+<div id="visualizarPedidos" class="col-md-12 row">
 <div class="col-md-12">
 	<ul class="nav nav-pills" role="tablist" data-toggle="buttons">
         <li  class="nav-item">

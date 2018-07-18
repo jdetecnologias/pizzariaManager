@@ -11,7 +11,7 @@
 					
 					<li class="nav-item"><a href="<?php echo base_url("login/deslogar");?>" class="nav-link ">Deslogar do sistema</a></li>
 				</ul>
-				<ul class="navbar-nav drop">
+				<ul class="navbar-nav drop"> 
 					<li class="nav-item dropdown">
 						<a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navDrop">Social
 						</a>

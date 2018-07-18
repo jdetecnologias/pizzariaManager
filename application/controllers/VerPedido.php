@@ -10,7 +10,7 @@ class VerPedido extends MY_Controller {
 			$resultAberto = $get->obterPedidos(1,$dataMenor);
 			$resultFinalizados = $get->obterPedidos(0,$dataMenor);
 			$resultCancelados = $get->obterPedidos(2,$dataMenor);
-				$this->load->view("inicio",array("resultAberto"=>$resultAberto,"resultFinalizados"=>$resultFinalizados,"resultCancelados"=>$resultCancelados,"retorno"=>5));
+				$this->load->view("gridPedidosView",array("resultAberto"=>$resultAberto,"resultFinalizados"=>$resultFinalizados,"resultCancelados"=>$resultCancelados,"retorno"=>5));
 		}
 	public function AtualizarPagina(){
 		$dataMenor = now("America/Sao_paulo")-86400;
