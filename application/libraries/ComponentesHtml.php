@@ -26,7 +26,7 @@ Class ComponentesHtml{
         }
         $componente .= "<div id-mesa='".$m->id_mesa."' class='col-2 ".$class." m-1 mesaClick' >\n";
        
-        $componente .= "<div class='text-center' >Mesa ".$m->numero."</div>";
+        $componente .= "<div id='numeroMesa' class='text-center' >Mesa ".$m->numero."</div>";
         $componente .= "<div class='text-center' >".$m->qtdLugares." lugares</div>";  
          $componente .= "<div class='text-center'>Status: ".$m->descricao." </div>";    
         $componente .= "</div>\n";

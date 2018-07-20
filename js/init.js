@@ -442,7 +442,9 @@ $(document).ready(function() {
         var controle = 0;
         if (status === "1") {
           var id_cliente = document.querySelector("#id_cliente").value;
+          var tipoCliente = document.querySelector("#id_cliente").getAttribute("tipoCliente");
           var dados = {
+            "tipoCliente":tipoCliente,
             "id_cliente": id_cliente,
             "dadosDoPedido": dadosDoPedido
           };
@@ -823,9 +825,29 @@ x++;
       });
       
     })();
+    $("#labelMesa button").on("click",function(){
+    modalCliente.inicio();
+      $("#id_cliente").attr("tipoCliente",1);
+      
+    });
+    $("#labelCliente button").on("click",function(){
+      $("#mesas").attr("id-mesa","");
+     $("#numeMesa").html(""); 
+      $("#id_cliente").attr("tipoCliente",2);
+    });
    $(".crud-mesa").on("click",function(){
      $("#acao").val($(this).attr("value"));
    })
+    $("#mesas .mesaClick").on("click",function(){
+      var id_mesa = $(this).attr("id-mesa");
+      getDadosCliente().setAttribute("status",1);
+     
+     $("#mesas").attr("id-mesa",id_mesa);
+     $("#labelMesa #numeMesa").html($("#numeroMesa").text()); 
+      id_mesa = parseInt(id_mesa);
+      $("#id_cliente").val(id_mesa);
+    });
+    
     $(".mesaClick").on("click",function(){
      var id_mesa = $(this).attr("id-mesa");
       $.ajax({

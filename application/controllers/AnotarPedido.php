@@ -5,12 +5,15 @@ class AnotarPedido extends MY_Controller {
 	public function formulario(){
 		
      $this->load->model("ProdutoModel");
-		
+		 $this->load->library("ComponentesHtml");
+    
+    $prep = new ComponentesHtml();
+    $mesas = $prep->ComponenteMesas();
     $preparar = new ProdutoModel();
 		$prod = $preparar->getProdutos();
 
     $categorias = $preparar->getCategoriaProdutos();
-		$this->load->view('pdvView',array('retorno'=>1,'prod'=>$prod,'categorias'=>$categorias));
+		$this->load->view('pdvView',array('retorno'=>1,'prod'=>$prod,'categorias'=>$categorias,'mesas'=>$mesas));
    
    
   }
@@ -18,6 +21,7 @@ class AnotarPedido extends MY_Controller {
 	public function finalizar(){
 		$id_cliente = $this->input->post("id_cliente");
                $dadosDoPedido = $this->input->post("dadosDoPedido");
+    $tipoCliente = $this->input->post("tipoCliente");
               // $dadosDoPedido[0] = array("codigo"=>5,"preco"=>20.0);
                 $x = 0;
                 $erro = 0;
@@ -27,7 +31,7 @@ class AnotarPedido extends MY_Controller {
                     $x++;  
                 }
 	            	$data = now('America/Sao_Paulo');
-                $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"data_criacao"=>$data);
+                $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"tipoCliente"=>$tipoCliente,"data_criacao"=>$data);
                 $this->load->model("anotarPedidoModel");
                 $gravar = new AnotarPedidoModel();
                 $isTrue = $gravar->gravarPedido($pedido);

@@ -3,8 +3,8 @@
         <div id="dados-do-cliente" class="col-9 col-sm-5 border" status="0" style="bo rder:1px solid red;"> 
             <table class="table border" style="bor der:1px solid black;">
                
-                    <input type="hidden" name="id_cliente" id="id_cliente"/>
-                        <div class="col-12 row">
+                    <input type="hidden" name="id_cliente" id="id_cliente" tipoCliente=""/>
+                        <div id="labelCliente" class="col-12 row">
                             <div class="col-5">
                                 <button class="btn-primary btn-sm btn-block text-center mt-2" data-toggle="modal" data-target="#dadosCliente">
                                     <i class="far fa-address-card fa-lg"></i>CLIENTE
@@ -13,7 +13,17 @@
                            <div id="nomeCliente" class="col-7 text-center">
                           
                             </div> 
-                       </col>   
+                          </div>
+                <div id="labelMesa" class="col-12 row">
+                            <div class="col-5">
+                                <button class="btn-primary btn-sm btn-block text-center mt-2" data-toggle="modal" data-target="#mesas">
+                                    <i class="far fa-address-card fa-lg"></i>MESA
+                                </button>
+                            </div> 
+                           <div id="numeMesa" class="col-7 text-center">
+                          
+                            </div> 
+                          </div>
                            
                            <form method="post" action="#<?php /*echo base_url('anotarPedido/finalizar');*/?>">
                               <div id="dadosCliente" class="modal" cadastrarCliente="false">
@@ -116,4 +126,17 @@
                          <div id="editarViaAjax">
                           <?php $this->load->view("telasCadastro/modalEditarClienteView");?>
                         </div>
+  <div id="mesas" class="modal">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="model-title">Favor selecionar a mesa</h5>
+             <button type="button" class="close" data-dismiss="modal">&times;</button>                        
+           </div>
+           <div id="corpoMesas" class="modal-body">
+              <?php echo $mesas; ?>
+           </div>
+      </div>
+    </div>
+  </div>
         
