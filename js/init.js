@@ -823,7 +823,55 @@ x++;
       });
       
     })();
-  
+   $(".crud-mesa").on("click",function(){
+     $("#acao").val($(this).attr("value"));
+   })
+    $(".mesaClick").on("click",function(){
+     var id_mesa = $(this).attr("id-mesa");
+      $.ajax({
+        url:getUrl("Mesas/getMesaViaAjax/"),
+        data:{id:id_mesa},
+        type:'post',
+        success:function(r){
+          $("#btnCadastrarMesa").hide();
+          $("#btnExcluirMesa").show();
+          $("#btnEditarMesa").show();
+          $("#idMesa").val(r.id);
+          $("#acao").val("Editar");
+          $("#numeMesa").val(r.numero);
+          $("#descricaoMesa").val(r.descricao);
+          $("#qtdLugares").val(r.qtdLugares);
+        },
+        error:function(){
+          alert("Erro ao tentar recuperar dados da mesa");
+        },
+        dataType: 'json'
+      });
+    })
+  $("#btnExcluirMesa").on("click",function(e){
+    e.preventDefault();
+    var id = $("#idMesa").val();
+    var resp = confirm("Deseja realmente excluir a mesa?");
+    if(resp){
+      $.ajax({
+        url:getUrl("mesas/deletarViaAjax"),
+        data:{id:id},
+        type:"post",
+        success:function(r){
+          console.log(r);
+          if(r == 1){
+          $("#mensagens").html("<div class='alert alert-success'>Mesa excluida com sucesso!</div>");
+          }
+          else{
+             $("#msn").html("<div class='alert alert-danger'>Erro ao tentar excluir a mesa!</div>");
+          }
+        },
+        error:function(){
+         $("#msn").html("<div class='alert alert-danger'>Erro ao tentar excluir a mesa!</div>");
+      }
+      });
+    }
+  });
   $("#btnEditarCliente").on("click",function(){
      cadastro.GetDadosClienteToEdit(parseInt($(this).attr("idCliente")));
   });

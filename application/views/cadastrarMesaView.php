@@ -1,7 +1,7 @@
 
 <div id="formCadastrarMesa" class="row col-12 form-group border">
   <div class="col-12 col-sm-4 border">
-  <form name="cadastroMesa" method="post" action="<?php echo base_url("Mesas/cadastrar");?>">
+  <form name="cadastroMesa" method="post" action="<?php echo base_url("Mesas/crud");?>">
     <div id="caracDosProdutos">
       <div class="form-group my-2  ">
         <div class="form-group"><!-- INICIO Categorias produtos-->
@@ -9,6 +9,8 @@
         </div>
         </div><!-- FIM Categorias produtos-->
          <label for="Mesa">Número da Mesa: </label>
+         <input type="hidden" value="Cadastrar" id="acao" name="acao"/>
+        <input type="hidden" value="" id="idMesa" name="id"/>
         <input type="text" name="numeMesa" id="numeMesa" class="form-control"/>
       </div>
          <div class="form-group">
@@ -21,7 +23,9 @@
         </div>
     </div>
    <div class="form-group form-row">    
-      <input id="btnCadastrarProduto" type="submit" class="btn btn-primary mr-2" value="Cadastrar"/>
+      <input id="btnCadastrarMesa" name="cad" type="submit" class="btn crud-mesa btn-primary mr-2" value="Cadastrar"/>
+     <input id="btnEditarMesa" name="edit" style="display:none" type="submit" class="btn btn-primary crud-mesa mr-2" value="Editar"/>
+     <input id="btnExcluirMesa" name="edit" style="display:none" type="submit" class="btn btn-primary crud-mesa mr-2" value="Excluir"/>
       <input type="reset" class="btn btn-primary" value="Limpar"/>
   </div>
  </form>
@@ -33,11 +37,7 @@
     ?>
   
   </div>
-  <div id="mensagensValidacao" class="col-12"> 
-    <?php
-      echo validation_errors();
-    ?>
-  </div>
+ 
     
 </div>
 <script>
