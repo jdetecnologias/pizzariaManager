@@ -3,7 +3,7 @@
   <div class="col-12 col-sm-4 border">
     
   
-  <form name="cadastroProduto" method="post" action="<?php echo base_url("CadastrarProduto/finalizar");?>">
+  <form id="cadastroProduto" name="cadastroProduto" method="post" action="<?php echo base_url("CadastrarProduto/crud");?>">
     <div id="caracDosProdutos">
       <div class="form-group my-2  ">
         <div class="form-group"><!-- INICIO Categorias produtos-->
@@ -20,6 +20,8 @@
         </div>
         </div><!-- FIM Categorias produtos-->
          <label for="produto" >Produto</label>
+        <input type="hidden" value="" id="idProd" name="idProd" />
+         <input type="hidden" value="Cadastrar" id="acao" name="acao" />
         <input type="text" name="produto" id="produto" class="form-control"/>
       </div>
          <div class="form-group">
@@ -29,13 +31,15 @@
     </div>
    <div class="form-group form-row">    
       <input id="btnCadastrarProduto" type="submit" class="btn btn-primary mr-2" value="Cadastrar"/>
+      <input id="btnEditarProduto" type="submit" style="display:none;" class="btn btn-primary mr-2" value="Editar"/>
+      <input id="btnExcluirProduto" type="submit" style="display:none;" class="btn btn-primary mr-2" value="Excluir"/>
       <input type="reset" class="btn btn-primary" value="Limpar"/>
   </div>
  </form>
      </div>
   
   <div class="col-12 col-sm-8 border">
-   <?php $this->load->view("ListaProdutosCrua"); ?> 
+   <?php echo $produtos;?> 
   
   </div>
     

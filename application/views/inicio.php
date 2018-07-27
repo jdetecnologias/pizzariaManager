@@ -1,3 +1,4 @@
+
 <html lang="pt-br">
 <head>
 <title>Pizza Delivery</title>
@@ -52,6 +53,10 @@
           case 8:
 					  $this->load->view("cadastrarMesaView");
 					break;
+            case 9:
+					  $this->load->view("CrudCategoriasView");
+					break;
+          
 					}
 			}	
 			if(isset ($dados)){

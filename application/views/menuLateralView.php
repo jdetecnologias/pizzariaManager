@@ -48,6 +48,13 @@
 								<span role="separator"></span>
 						</a>
 					</li>
+            <li>
+						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("categorias");?>" >
+               <p class="fas fa-cart-plus text-sm-left">
+              Categorias</p>
+								<span role="separator"></span>
+						</a>
+					</li>
         
 				</ul><!--/ul-lateral -->
 			<!--</nav><!--/navbar lateral -->

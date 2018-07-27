@@ -80,7 +80,7 @@ $(document).ready(function() {
     return resultado / multiplicador;
   }
   (function(e) {
-    "use strict";
+    "strict mode"
     if(document.querySelector("#visualizarPedidos") == null){
   
       }
@@ -894,9 +894,53 @@ x++;
       });
     }
   });
+    $("#btnExcluirProduto").on("click",function(e){
+      e.preventDefault();
+      $("#acao").val("Deletar");
+      var resp = confirm("Você deseja realmente excluir o produto do cardápio");
+      if(resp){
+        
+        $("#cadastroProduto").submit();
+      }
+    });
   $("#btnEditarCliente").on("click",function(){
      cadastro.GetDadosClienteToEdit(parseInt($(this).attr("idCliente")));
   });
+   $("#limparForm").on("click",function(){
+        $("#btnCadastrarCat").show();
+        $("#btnEditarCat").hide();
+        $("#btnExcluirCat").hide();
+      apagarDadosDoFormulario(document.getElementById("formCategoria"));
+      $("#formCategoria #acao").val("Cadastrar");
+    });
+    
+    $("#tableCategorias tr").on("click",function(){
+      $("#btnCadastrarCat").hide();
+      $("#btnEditarCat").show();
+       $("#btnExcluirCat").show();
+      $("#formCategoria #categoria").val($(this).find("td").eq(0).text());
+       $("#formCategoria #descricaoCategoria").val($(this).find("td").eq(1).text());
+      $("#formCategoria #idCat").val($(this).attr("idCat"));
+      $("#formCategoria #acao").val("Editar");
+    });
+    $("#btnExcluirCat").on("click",function(e){
+      e.preventDefault();
+      $("#acao").val("Deletar");
+      var respo = confirm("Deseja realmente excluir está categoria de produtos?");
+      if(respo){
+        $("#formCategoria").parent().submit();
+      }
+    });
+    $("#tableProdutos tr").on("click",function(){
+      $("#btnExcluirProduto").show();
+      $("#btnEditarProduto").show();
+      $("#btnCadastrarProduto").hide();
+      $("#idProd").val($(this).attr("idprod"));
+      $("#acao").val("Editar");
+        $("#categoria").val($(this).find("td").eq(1).text());
+      $("#produto").val($(this).find("td").eq(1).text());
+       $("#sabor").val($(this).find("td").eq(0).text());
+    });
     $("#editarCliente").on("click",function(){
       var campoEdit = document.querySelectorAll("#dadosClienteEditar");
       acionarEl(radio,function(el){
