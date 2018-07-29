@@ -87,9 +87,14 @@
                 </table>	
          </div>
     <div class="col-12 col-sm-7 border" style="bor der:1px solid red;">
-     	  <?php 
-          $this->load->view("CardapioAnotarPedidoView",array("result"=>$prod,"categorias"=>$categorias));
-         ?>
+     	 
+          <h2 class="bg-info btn-sm btn-block text-center  my-3">Cardápio</h2>
+                <?php echo $categorias;?>
+                    <div class="tab-content"> <!-- A estrututra desta div, deve permanecer inalterada, para que o navbar funcione corretamente. -->
+                      <?php echo $cardapio;?>
+         
+               </div>
+        
      </div> 
             <div id="meiaPizza" class="modal">
                           <div class="modal-dialog">
@@ -110,9 +115,23 @@
                                  <tr><td id="descricaoPizzaMeia"></td><td id="valorTotalPizzaMeia"></td></tr>
                                   
                                 </table>
-                                 <?php 
-                                   $this->load->view("CardapioPizzaMeiaView",array("result"=>$prod));
-                                  ?>
+                        <div id = "botoesTamanhoMeiaPizza" namespace="meia_pizza_controller" class="btn-group btn-group-toggle my-2 controleTamanho" data-toggle="buttons">
+                                    <label tamanho="Media" class="btn selecionarPreco btn-secondary btn-sm">
+                                    <input type="radio"  name="options" id="option1" autocomplete="off" checked>
+                                      Média
+                                    </label>
+                                    <label tamanho="Grande" class="btn selecionarPreco btn-sm btn-secondary active">
+                                    <input type="radio" name="options"  id="option2" autocomplete="off">
+                                      Grande
+                                    </label>
+                                    <label  tamanho="Familia" class="btn selecionarPreco btn-sm btn-secondary">
+                                    <input type="radio" name="options"  id="option3" autocomplete="off"> 
+                                      Família
+                                    </label>
+                                    </div> 
+<table class="table table-bordered my-2" id="meia_pizza_controller" produtoIncluso="false">
+      <?php echo $cardapioMeiaPizza;?>
+  </table>
                               </div>
                                <div class="modal-footer">
                                         <button type="button" class="btn btn-danger fecharMeiaPizza" data-dismiss="modal">Fechar</button>

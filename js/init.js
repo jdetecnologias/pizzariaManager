@@ -252,14 +252,17 @@ $(document).ready(function() {
       var fecharMeiaPizza = document.querySelectorAll(".fecharMeiaPizza");
       var tabelaSelecao = document.getElementById("pedidoPizzaMeia");
       var tabelaPizzaMeia = new novaPizzaMeia();
+      
       $(".selecionarPreco").on("click", function() {
         var precos = precosPizzas();
         var pai = $(this).parent().attr("namespace");
+        console.log(pai);
         var tamanho = $(this).attr("tamanho");
-        $("#" + pai).attr("tamanho", tamanho)
+        $("#" + pai).attr("tamanho", tamanho);
         $("#" + pai + " .preco").html(precos[tamanho]);
         $("#" + pai + " #preco").val(precos[tamanho]);
       });
+      
       var qtdSaboresPermitidos = 2;
       (function() {
         function removePai(elemento) {

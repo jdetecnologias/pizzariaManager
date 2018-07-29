@@ -26,7 +26,7 @@
       echo "<tr pedido='".$pedido->id_pedido."'>
               <td>&nbsp<i class='fas fa-flag-checkered ".$classe."'>&nbsp</i></td>
               <td>".$pedido->nome."</td>
-              <td>".$pedido->id_pedido."</td>
+              <td><a href=''>".$pedido->id_pedido."</a></td>
               <td>".$pedido->preco."</td>
               <td>".$dataHora."</td>
               <td>".$tempoEspera."</td>

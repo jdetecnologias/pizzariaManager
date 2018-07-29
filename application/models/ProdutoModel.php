@@ -49,7 +49,7 @@ class ProdutoModel extends CI_Model{
   
   public function getProdutos(){
     $this->db->where("produto.status",1);
-    $this->db->order_by('tipoProduto','asc');
+    //$this->db->order_by('tipoProduto','asc');
     $this->db->join("categoriaProdutos","categoriaProdutos.id = produto.categoria","left");
     $query = $this->db->get("produto");
     

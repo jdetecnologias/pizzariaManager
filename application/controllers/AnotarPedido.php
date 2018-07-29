@@ -9,11 +9,10 @@ class AnotarPedido extends MY_Controller {
     
     $prep = new ComponentesHtml();
     $mesas = $prep->ComponenteMesas();
-    $preparar = new ProdutoModel();
-		$prod = $preparar->getProdutos();
-
-    $categorias = $preparar->getCategoriaProdutos();
-		$this->load->view('pdvView',array('retorno'=>1,'prod'=>$prod,'categorias'=>$categorias,'mesas'=>$mesas));
+    $cardapio = $prep->tabContentCategorias();
+    $cardapioMeiaPizza = $prep->cardapioProdutos(1,null,"meiaPizza");
+    $categorias = $prep->abasCategoria();
+		$this->load->view('pdvView',array('retorno'=>1,'cardapio'=>$cardapio,'categorias'=>$categorias,'mesas'=>$mesas,'cardapioMeiaPizza'=>$cardapioMeiaPizza));
    
    
   }

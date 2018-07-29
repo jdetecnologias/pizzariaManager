@@ -4,6 +4,131 @@ $dados -> as informações necessárias a serem tabeladas
 
 */
 Class ComponentesHtml{
+  public function cardapioProdutos($cat = null, $result = null,$classeLinha = null){
+    if($cat == null){
+      $this->CI =& get_instance();
+     $this->CI->load->model("CategoriaModel");
+    $prep = new CategoriaModel();
+    $categorias = $prep->getcategorias();
+    }
+    if($result == null){
+       $this->CI =& get_instance();
+     $this->CI->load->model("ProdutoModel");
+    $prep = new ProdutoModel();
+    $result = $prep->getProdutos();
+}
+    if($classeLinha == null or $classeLinha == "produto"){
+      $idTr = "produto";
+    }
+ if($cat == 1){$idTr = "cardapioPizza";}
+ if($classeLinha != "produto"){$idTr = "meia_pizza_controller";}
+    $compontente = '<table class="table table-bordered table-hover my-2" id="'.$idTr.'">';
+             foreach($result as $listaProd){
+               
+                                        if($listaProd->id == $cat){
+                                          
+                                        $compontente .= '<tr class="'.$classeLinha.'" codigo="'.$listaProd->id_produto.'">';
+                                        $compontente .= '<input type="hidden" value="'.$listaProd->valorUnitario.'" id="preco">';
+                                        $compontente .=  '<th class="tipoPizza" scope="row">1/2</th>';
+                                        $compontente .= '<td class="descricao" sabor="'.$listaProd->sabor.'">';
+                                        $compontente .= '<a href="#" style="text-decoration: none;" >'.$listaProd->sabor.'</a></td>';
+                                        $compontente .= '<th scope="row" class="input-group-text pl-1 pr-">R$</th>';
+                                        $compontente .= '<td class="preco">'.$listaProd->valorUnitario.'</td></tr>';
+                                       }
+                                      }
+    $compontente .= '</table>';
+    return $compontente;
+  }
+  public function botoesPedirMeiaPizza(){
+    return '<div class="row">
+                                   <div class="btn-group-toggle" data-toggle="buttons" >
+                                   <label id="pedirMeiaPizza" class="btn btn-success active btn-sm my-2 mx-2" data-toggle="modal" 
+                                   data-target="#meiaPizza">
+                                   <input type="checkbox" checked autocomplete="off" data-toggle="modal" data-target="#meiaPizza">2-Sabores
+                                   </label>
+                                   
+                                   </div>
+                                   <div>
+                                
+                                     
+                                   </div>
+                                   <div id = "" namespace="cardapioPizza" class="btn-group btn-group-toggle my-2 controleTamanho" 
+                                   data-toggle="buttons">
+                                    <label tamanho="Media" class="btn selecionarPreco btn-secondary btn-sm active">
+                                    <input type="radio"  name="options" id="option1" autocomplete="off" checked>
+                                      Média
+                                    </label>
+                                    <label tamanho="Grande" class="btn selecionarPreco btn-sm btn-secondary">
+                                    <input type="radio" name="options"  id="option2" autocomplete="off">
+                                      Grande
+                                    </label>
+                                    <label  tamanho="Familia" class="btn selecionarPreco btn-sm btn-secondary">
+                                    <input type="radio" name="options"  id="option3" autocomplete="off"> 
+                                      Família
+                                    </label>
+                                    </div>
+                                  </div>';
+  }
+  public function tabContentCategorias($categorias = null,$result = null){
+    if($categorias == null){
+      $this->CI =& get_instance();
+     $this->CI->load->model("CategoriaModel");
+    $prep = new CategoriaModel();
+    $categorias = $prep->getcategorias();
+    }
+    if($result == null){
+       $this->CI =& get_instance();
+     $this->CI->load->model("ProdutoModel");
+    $prep = new ProdutoModel();
+    $result = $prep->getProdutos();
+}
+  $compontente = "";
+    $x=0;
+                      foreach($categorias as $cat){
+                        if($x==0){$class = "active";}else{$class = "fade";}
+                       
+                        $compontente .= '<div id="'.$cat->categoria.'" idCategoria = "'.$cat->id.'"';
+                        $compontente .= ' class="container tab-pane '.$class.'">';
+                        if($cat->id == 1){
+                          
+                          $compontente .= $this->botoesPedirMeiaPizza();           
+                          
+                        } 
+                        $compontente .= $this->cardapioProdutos($cat->id,$result,"produto");
+                        
+                     $compontente .='</div>';
+                        
+                        $x++;
+                        
+                      }
+     
+      return $compontente;       
+   
+  }
+  public function AbasCategoria(){
+    $this->CI =& get_instance();
+     $this->CI->load->model("CategoriaModel");
+    $prep = new CategoriaModel();
+    $categorias = $prep->getCategorias();
+    if($categorias == 9 || $categorias == false){
+      return $categorias;
+    }
+    else{
+    $componente = '<ul class="nav nav-pills btn-group btn-group-toggle" role="tablist" data-toggle="buttons">';
+                    
+      
+                        foreach($categorias as $cat){
+                     
+                  $componente .= '<li class="btn nav-item border">';
+                    $componente .= '<a class="nav-link" data-toggle="pill" idCategoria ="'.$cat->id.'" href="#'.$cat->categoria.'"> '.$cat->categoria.'</a>';
+                   $componente .='</li>';
+                    } 
+                $componente .='</ul>';
+return $componente;
+}
+    
+  }
+  
   public function tableProdutos(){
     $this->CI =& get_instance();
     $this->CI->load->model("ProdutoModel");
