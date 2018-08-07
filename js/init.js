@@ -390,9 +390,17 @@ $(document).ready(function() {
       arr.splice(inicio, qtd);
     }
     document.addEventListener("click",function(e){
-      if(e.target.classList.contains("btn-finalizar")){
-        finalizarPreparo(e.target);
+    
+      if(e.target.classList.contains("btn-acao")){
+        switch(e.target.value){
+          case "finalizar":
+            finalizarPreparo(e.target);
+            break;
+        }
+        
+        //
       }
+//e.target.querySelector("option").setAttribute("selected","selected");
     });
     function finalizarPreparo(el) {
       var btnFinalizar = document.querySelectorAll(".btn-finalizar");
@@ -897,6 +905,21 @@ x++;
       });
     }
   });
+     $(document).on("click",".viewPedido",function(){
+      var objClicado = $(this);
+      var pedido = objClicado.parent().parent().attr("pedido");
+       $.ajax({
+         url:getUrl("verPedido/getPedido"),
+         type:"post",
+         data:{id:pedido},
+         success:function(r){
+           $("#dadosDoPedido").html(r);
+         },
+         error:function(){
+           
+         }
+       });
+    });
     $("#btnExcluirProduto").on("click",function(e){
       e.preventDefault();
       $("#acao").val("Deletar");
@@ -934,6 +957,7 @@ x++;
         $("#formCategoria").parent().submit();
       }
     });
+   
     $("#tableProdutos tr").on("click",function(){
       $("#btnExcluirProduto").show();
       $("#btnEditarProduto").show();

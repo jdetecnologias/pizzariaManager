@@ -34,6 +34,24 @@ class VerPedidoModel extends CI_Model{
 			return false;
 		}
 	}
+  public function getPedido($id){
+  $this->db->select("itens.preco, itens.id_produto, produto.tipoProduto, produto.sabor");
+    $this->db->where("itens.id_pedido",$id);
+    $this->db->from("itens");
+    $this->db->join("pedido","itens.id_pedido = pedido.id_pedido");
+    $this->db->join("produto","itens.id_produto = produto.id_produto");
+    $query = $this->db->get();
+    if(!$query){
+      return false;
+    }
+    else if($query->num_rows()<=0){
+      return 9;
+    }
+    else{
+      return $query->result_array();
+    }
+    
+  }
 	
 		
 	
