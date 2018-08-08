@@ -54,6 +54,11 @@ class VerPedidoModel extends CI_Model{
   }
 	
 		
-	
+	public function cancelarPedido($id){
+    $this->db->set("status",2);
+    $this->db->where("id_pedido",$id);
+    $query = $this->db->update("pedido");
+    return $query;
+  }
 	
 }

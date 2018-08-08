@@ -14,8 +14,8 @@ class VerPedido extends MY_Controller {
 		}
 	public function AtualizarPagina(){
 		$dataMenor = now("America/Sao_paulo")-86400;
-			$this->load->model("verPedidoModel");
-			$get = new verPedidoModel();
+			$this->load->model("VerPedidoModel");
+			$get = new VerPedidoModel();
     	$resultAberto = $get->obterPedidos(1,$dataMenor);
 			$resultFinalizados = $get->obterPedidos(0,$dataMenor);
 			$resultCancelados = $get->obterPedidos(2,$dataMenor);
@@ -49,6 +49,19 @@ class VerPedido extends MY_Controller {
     $tr .= $html->gerarHtml("tr",null,$td);
     $table = $html->gerarHtml("table","class='table table-bordered'",$tr);
     echo $table;
+  }
+  public function cancelarPedido(){
+    $this->load->model("VerPedidoModel");
+    $prep = new VerPedidoModel();
+    $id =$this->input->post("id");
+   
+    $cancelar = $prep->cancelarPedido($id);
+    if($cancelar){
+      echo "1";
+    }
+    else{
+      echo "0";
+    }
   }
 }
 

@@ -17,7 +17,7 @@
 	<h5>Em aberto</h5>
 <?php
 	if(isset($resultAberto) and $resultAberto != false){
-		$this->load->view("telasVerPedido/formListaPedidos",array("ped"=>$resultAberto,"nomeTabeça"=>"Em aberto"));
+		$this->load->view("telasVerPedido/formListaPedidos",array("ped"=>$resultAberto,"nomeTabela"=>"Em aberto"));
 	}
 ?>
 	  </div>
@@ -25,7 +25,7 @@
 	   <h5>Finalizados</h5>
 <?php
 	if(isset($resultFinalizados) and $resultFinalizados != false){
-		$this->load->view("telasVerPedido/formListaPedidos",array("ped"=>$resultFinalizados,"nomeTabeça"=>"Finalizados"));
+		$this->load->view("telasVerPedido/formListaPedidos",array("ped"=>$resultFinalizados,"nomeTabela"=>"Finalizados"));
 	}
 ?>
 	  </div>
@@ -33,7 +33,7 @@
 	  <h5>Cancelados</h5>
 <?php
 	if(isset($resultCancelados) and $resultCancelados != false){
-		$this->load -> view("telasVerPedido/formListaPedidos",array("ped"=>$resultCancelados,"nomeTabeça"=>"Cancelados"));
+		$this->load -> view("telasVerPedido/formListaPedidos",array("ped"=>$resultCancelados,"nomeTabela"=>"Cancelados"));
 	}
 ?>
 
@@ -41,7 +41,7 @@
 	  </div>
 </div>
 
-<div id="verPedidoTable" class="modal">
+<div id="verPedidoTable" class="modal" idPedido="">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
@@ -52,7 +52,10 @@
     
          </div>
          <div class="modal-footer">
-            <button class='iniciarIntervalo' type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+       
+                       <button  id="cancelarPedido" type="button" class="btn btn-sm btn-danger iniciarIntervalo" data-dismiss="modal">Cancelar Pedido</button>
+                       <button  type="button" id="finalizarPedido" class="btn btn-sm btn-success iniciarIntervalo" data-dismiss="modal">Finalizar Pedido</button>
+            <button  type="button" class="btn btn-sm btn-danger iniciarIntervalo" data-dismiss="modal">Fechar Tela</button>
          </div>
       </div>
    </div>

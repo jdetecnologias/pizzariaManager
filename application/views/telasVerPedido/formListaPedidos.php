@@ -7,7 +7,6 @@
         <td>Fechar Pedido</td>
         <td>Data/hora pedido</td>
         <td>Tempo(min)</td>
-        <td>Ação</td>
 		    <td>Status</td>
         <td>Situação</td>
     </tr>
@@ -24,32 +23,16 @@
       $situacao = "No prazo";
       $classe = "noPrazo";
     }
-      echo "<tr pedido='".$pedido->id_pedido."'>
+      echo "<tr pedido='".$pedido->id_pedido."' class='viewPedido' data-toggle='modal' data-target='#verPedidoTable'>
               <td>&nbsp<i class='fas fa-flag-checkered ".$classe."'>&nbsp</i></td>
               <td>".$pedido->nome."</td>
-              <td><a  data-toggle='modal' data-target='#verPedidoTable' class='viewPedido' href='#' >".$pedido->id_pedido."</a></td>
+              <td>".$pedido->id_pedido."</td>
               <td>".$pedido->preco."</td>
-              <td><button style='padding-top:0;padding-bottom:0;' class='btn-primary btn
-              btn-sm'>Fechar Pedido</button></td>
+              <td><a class='btn-primary btn
+              btn-sm viewPedido' data-toggle='modal' data-target='#verPedidoTable' 
+              >Fechar Pedido</a></td>
               <td>".$dataHora."</td>
               <td>".$tempoEspera."</td>
-              <td>
-                <select class='btn-acao'>
-                  <option>selecione: </option>
-                  <option value='finalizar'>
-                    <button  class='btn btn-sm btn-primary btn-finalizar' 
-                    style='padding-top:0;adding-bottom:0;'>Finalizar Preparo</button>
-                  </option>
-                  <option value='cancelar'>
-                    <button  class='btn btn-sm btn-danger btn-cancelar' 
-                    style='padding-top:0;padding-bottom:0;'>Cancelar</button>
-                  </option>
-                  <option value='fecharPedido'>
-                    <button  class='btn btn-sm btn-danger btn-cancelar' 
-                    style='padding-top:0;padding-bottom:0;' '>Fechar Pedido</button>
-                  </option>
-                </select>
-              </td>
               <td>".$pedido->descricao."</td>
               <td>".$situacao."</td>
            </tr>";

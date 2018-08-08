@@ -89,19 +89,23 @@ function setIntervalo(funcao,tempoMili){
   
       }
     else{
-      inter = setIntervalo(verPedidos,3000);
+      function iniciarInterval(){
+        inter = setIntervalo(verPedidos,3000);
+      }
+      
            $(document).on("click","#verPedidoTable .iniciarIntervalo",function(){
-               inter = setIntervalo(verPedidos,3000);
+               iniciarInterval();
            });
            $(document).on("click",".viewPedido",function(){
               clearInterval(inter);
               var objClicado = $(this);
-              var pedido = objClicado.parent().parent().attr("pedido");
-               $.ajax({
+              var pedido = objClicado.attr("pedido"); 
+             $.ajax({
                  url:getUrl("verPedido/getPedido"),
                  type:"post",
                  data:{id:pedido},
                  success:function(r){
+                   $("#verPedidoTable").attr("idPedido",pedido);
                    $("#dadosDoPedido").html(r);
                  },
                  error:function(){
@@ -109,18 +113,51 @@ function setIntervalo(funcao,tempoMili){
                  }
        });
     });
-          $(document).on("click","#visualizarPedidos li",function(){
+      $(document).on("click","#cancelarPedido",function(){
+        
+          var id = $("#verPedidoTable").attr("idPedido");
+          var resp = confirm("Você tem certeza que deseja cancelar este pedido!");
+          if(resp){
+          $.ajax({
+            url:getUrl("verPedido/cancelarPedido"),
+            type:'post',
+            data:{id:id},
+            success:function(r){
+              iniciarInterval();
+              if(r==="0"){
+                alert("Pedido não foi cancelado.");
+              }
+              else if(r==="1"){
+                alert("Pedido cancelado com sucesso.");
+              }
+            },
+            error:function(){
+              iniciarInterval();
+              alert("erro ao tentar se comunicar servidor");
+            }
+          });
+          }
+        });
+      $(document).on("click","#finalizarPedido",function(){
+        
+          var numeroPedido = $("#verPedidoTable").attr("idPedido");
+          var resp = confirm("Você tem certeza que deseja cancelar este pedido!");
+          if(resp){
+            finalizarPreparo(numeroPedido);
+          }
+        });
+      
+      $(document).on("click","#visualizarPedidos li",function(){
             var int = $(this).attr("intervalo");
       if(int==="true"){
-        inter = setIntervalo(verPedidos,3000); 
+        iniciarInterval();
       
       }
             else if(int ==="false"){
               clearInterval(inter);
           
             }
-        
-      });
+          });
       
     }
     if (document.getElementById("categoria") != null) {
@@ -387,7 +424,7 @@ function setIntervalo(funcao,tempoMili){
           fecharTela();
         });
       }
-    })();
+    })();///////////
 
     function listarLinha(x, arr, elemento) {
       var texto = '<tr indice="' + x + '">\n\
@@ -425,26 +462,12 @@ function setIntervalo(funcao,tempoMili){
     function removeItem(arr, inicio, qtd) {
       arr.splice(inicio, qtd);
     }
-    document.addEventListener("click",function(e){
     
-      if(e.target.classList.contains("btn-acao")){
-        switch(e.target.value){
-          case "finalizar":
-            finalizarPreparo(e.target);
-            break;
-        }
-        
-        //
-      }
 //e.target.querySelector("option").setAttribute("selected","selected");
-    });
-    function finalizarPreparo(el) {
-      var btnFinalizar = document.querySelectorAll(".btn-finalizar");
+
+    function finalizarPreparo(numeroPedido) {
       var x = 0;
-      
-        
-          var numeroPedido = el.parentNode.parentNode.getAttribute("pedido");
-           var resposta =confirm("Você deseja finalizar o preparo deste pedido? ");
+      var resposta =confirm("Você deseja finalizar o preparo deste pedido? ");
           if(resposta){
           $.ajax({
             url: getUrl("FinalizarPreparo/finalizar"),
@@ -463,8 +486,6 @@ function setIntervalo(funcao,tempoMili){
             }
           });
           }
-       
-      
     }
     $('.produto').on('click', function() {
       var preco = $(this).children(".preco").text(); //acessar filho
@@ -1011,5 +1032,7 @@ x++;
    
 
 });
+  
+  
   })();
 });
