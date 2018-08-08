@@ -1,13 +1,13 @@
 <div id="visualizarPedidos" class="col-md-12 row">
 <div class="col-md-12">
 	<ul class="nav nav-pills" role="tablist" data-toggle="buttons">
-        <li  class="nav-item">
+        <li  class="nav-item" intervalo="true">
             <a id="aberto" class="nav-link" data-toggle="pill"  href="#emAberto">Em aberto</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" intervalo="false">
             <a class="nav-link limparIntervalo"data-toggle="pill"  href="#finalizados">Finalizados</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" intervalo="false">
             <a class="nav-link" data-toggle="pill" href="#cancelados">cancelados</a>
         </li>
 	</ul> 
@@ -46,13 +46,13 @@
       <div class="modal-content">
          <div class="modal-header">
             <h4 class="modal-title">Dados do Pedido</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="close iniciarIntervalo" data-dismiss="modal">&times;</button>
          </div>
          <div id="dadosDoPedido" class="modal-body">
     
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button class='iniciarIntervalo' type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>

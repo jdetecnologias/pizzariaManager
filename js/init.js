@@ -31,7 +31,10 @@ $(document).ready(function() {
   getURL = function getUr(url) {
     return urlRoot + url;
   }
-
+function setIntervalo(funcao,tempoMili){
+   var intervalo = setInterval(funcao,tempoMili);
+   return intervalo;
+}
   function apagarDadosDoFormulario(form) {
     var Elementos = ["input", "select","textarea"];
     var y = 0;
@@ -81,11 +84,44 @@ $(document).ready(function() {
   }
   (function(e) {
     "strict mode"
+
     if(document.querySelector("#visualizarPedidos") == null){
   
       }
     else{
-      setInterval(function(){verPedidos();},10000);
+      inter = setIntervalo(verPedidos,3000);
+           $(document).on("click","#verPedidoTable .iniciarIntervalo",function(){
+               inter = setIntervalo(verPedidos,3000);
+           });
+           $(document).on("click",".viewPedido",function(){
+              clearInterval(inter);
+              var objClicado = $(this);
+              var pedido = objClicado.parent().parent().attr("pedido");
+               $.ajax({
+                 url:getUrl("verPedido/getPedido"),
+                 type:"post",
+                 data:{id:pedido},
+                 success:function(r){
+                   $("#dadosDoPedido").html(r);
+                 },
+                 error:function(){
+
+                 }
+       });
+    });
+          $(document).on("click","#visualizarPedidos li",function(){
+            var int = $(this).attr("intervalo");
+      if(int==="true"){
+        inter = setIntervalo(verPedidos,3000); 
+      
+      }
+            else if(int ==="false"){
+              clearInterval(inter);
+          
+            }
+        
+      });
+      
     }
     if (document.getElementById("categoria") != null) {
       function haCampoPreco() {
@@ -905,21 +941,7 @@ x++;
       });
     }
   });
-     $(document).on("click",".viewPedido",function(){
-      var objClicado = $(this);
-      var pedido = objClicado.parent().parent().attr("pedido");
-       $.ajax({
-         url:getUrl("verPedido/getPedido"),
-         type:"post",
-         data:{id:pedido},
-         success:function(r){
-           $("#dadosDoPedido").html(r);
-         },
-         error:function(){
-           
-         }
-       });
-    });
+
     $("#btnExcluirProduto").on("click",function(e){
       e.preventDefault();
       $("#acao").val("Deletar");
