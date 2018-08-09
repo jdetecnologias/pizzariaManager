@@ -1,20 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mesas extends MY_Controller {
-  private $dados;
-  private $numMesa;// = $this->input->post("numeMesa");
+class Pagamento extends MY_Controller {
+  private $dados; 
   private $descricao;// $this->input->post("descricaoMesa");
-  private $qtdLugares;// $this->input->post("qtdLugares"); private $dados;// array("numero"=>$numMesa,"descricao"=>$descricao,"qtdLugares"=>$qtdLugares);
+  private $qtdDiasReceber;// $this->input->post("qtdLugares"); private $dados;// array("numero"=>$numMesa,"descricao"=>$descricao,"qtdLugares"=>$qtdLugares);
   public function setVariaveis(){
-   $this->numMesa = $this->input->post("numeMesa");
-   $this->descricao = $this->input->post("descricaoMesa");
-   $this->qtdLugares=  $this->input->post("qtdLugares"); 
+   $this->descricao = $this->input->post("descricao");
+   $this->qtdDiasReceber=  $this->input->post("qtdDiasReceber");
    $this->dados = array(
-                        "numero"=>$this->numMesa,
+                       
                         "descricao"=>$this->descricao,
-                        "qtdLugares"=>$this->qtdLugares,
-                        "status"=>2
+                        "prazoRecebimento"=>$this->qtdDiasReceber,
+                        "status"=>1
                        );
     if($this->input->post("id")!=null){
       $this->dados["id"] = $this->input->post("id");
@@ -24,22 +22,15 @@ class Mesas extends MY_Controller {
     $this->load->library("ComponentesHtml");
     
     $prep = new ComponentesHtml();
-    $var["form"]=8;
+    $var["form"]=10;
     $var["retorno"] = 12;
-    $var["mesas"]=$prep->ComponenteMesas();
+    $var["formasPagamento"]=$prep->ComponenteFormaPagamento();
     $this->load->view("inicio",$var);
   }
   public function validacao($tipo = null){
-    switch($tipo){
-       case "editar":
-        $stringValid = "required";
-        break;
-      default:
-        $stringValid = "required|is_unique[mesas.numero]";
-    }
-      $this->load->library("form_validation");
-    $this->load->model("MesaModel");
-    $this->form_validation->set_rules("numeMesa"," mesa",$stringValid,array("is_unique"=>"Já há %s cadastrada com este número","required"=>"O número da %s é necessário! "));
+    $this->load->library("form_validation");
+    $this->load->model("PagamentoModel");
+    $this->form_validation->set_rules("descricao"," A descricao","required",array("required"=>"%s é necessário! "));
     if(!$this->form_validation->run()){
        $msn =   "<div class='alert alert-danger alert-dismissible'>".validation_errors()."</div>";
       $this->index(array("msn"=>$msn));
@@ -64,23 +55,39 @@ class Mesas extends MY_Controller {
   public function cadastrar(){
    $isValido = $this->validacao();
     if($isValido){
-      $preparar = new MesaModel();
+      $preparar = new PagamentoModel();
       $this->setVariaveis();
       $gravar = $preparar->cadastrar($this->dados);
       if($gravar){
-        $msn = '<div class="alert alert-success alert-dismissible">Mesa Cadastrada com    
+        $msn = '<div class="alert alert-success alert-dismissible">Forma de pagamento Cadastrada com    
         Sucesso</div>';
         
       }// if $gravar
       else{
-         $msn = '<div class="alert alert-danger alert-dismissible">Erro ao cadastrar mesa!   
+         $msn = '<div class="alert alert-danger alert-dismissible">Erro ao cadastrar a forma de pagamento!   
         Sucesso</div>';
       }
       $this->index(array("msn"=>$msn));
    }// $isValid
  } // public function cadastrar()     
   
-  public function getMesaViaAjax(){
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ /* public function getMesaViaAjax(){
     $this->load->model("MesaModel");
     $id=$this->input->post("id");
     $prep = new MesaModel();
@@ -126,6 +133,6 @@ class Mesas extends MY_Controller {
   }
   public function getId(){
     return $this->input->post("id");
-  }
+  }*/
 }
 

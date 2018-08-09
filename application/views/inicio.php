@@ -46,15 +46,8 @@
           case 6:
 					  $this->load->view("verPedidoView");
 					break;
-					
-         case 7:
-					  $this->load->view("cadastrarProdutoView");
-					break;
-          case 8:
-					  $this->load->view("cadastrarMesaView");
-					break;
-            case 9:
-					  $this->load->view("CrudCategoriasView");
+          case 12:
+					  $this->load->view("configView");
 					break;
           
 					}

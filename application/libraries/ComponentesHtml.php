@@ -221,5 +221,64 @@ return $componente;
     $componente .="</div></a>";
       return $componente;
   }
+  public function ComponenteFormaPagamento(){
+    $this->CI =& get_instance();
+    $this->CI->load->library("HTML");
+    $this->CI->load->model("PagamentoModel");
+    $prep = new PagamentoModel();
+    $html = new html();
+    $formasPagamento = $prep->getFormasPagamento();
+   
+    if($formasPagamento == 9){
+       $table = $html->gerarHtml("div","class='text-center'","Não há formas de pagamento cadastradas");
+      
+    }
+    else if(!$formasPagamento){
+      
+            $table = $html->gerarHtml("div","class='text-center'","Erro de conexão com o banco de dados. Favor contactar o administrador");
+    }
+    else{
+      $td = $html->gerarHtml("td",null,"Forma");
+       $td .= $html->gerarHtml("td",null,"PrazoRecebimento");
+      $tr = $html->gerarHtml("tr",null,$td);
+      $td="";
+      foreach($formasPagamento as $f){
+        $td .= $html->gerarHtml("td",null,$f->descricao);
+        $td .= $html->gerarHtml("td",null,$f->prazoRecebimento);
+        $tr .= $html->gerarHtml("tr",null,$td);
+        $td ="";
+      }
+      
+      $table = $html->gerarHtml("table","class='table table-bordered'",$tr);
+    }
+    
+    return $componente = $html->gerarHtml("div"," class='col-12 row'",$table);
+  }
+  
+  public function selectFormaPagamento(){
+    $this->CI =& get_instance();
+    $this->CI->load->library("HTML");
+    $this->CI->load->model("PagamentoModel");
+    $prep = new PagamentoModel();
+    $html = new html();
+    $formasPagamento = $prep->getFormasPagamento();
+    if($formasPagamento== false){
+      $options = "";
+      return false;
+    }
+    else if($formasPagamento == 9){
+    $options = $html->gerarHtml("option","value='null'","sem formas de pagamento");
+      return false;
+    }
+    else{
+      $options = "";
+      foreach($formasPagamento as $f){
+        $options .= $html->gerarHtml("option","value='".$f->id."'",$f->descricao);
+      }
+      
+    }
+    return $componente = $html->gerarHtml("select","name='formaPagamento' id='formaPagamento'",$options);
+    
+  }
 }
 ?>

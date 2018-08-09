@@ -2,13 +2,13 @@
 <div class="col-md-12">
 	<ul class="nav nav-pills" role="tablist" data-toggle="buttons">
         <li  class="nav-item" intervalo="true">
-            <a id="aberto" class="nav-link" data-toggle="pill"  href="#emAberto">Em aberto</a>
+            <a id="abaAbertos" class="nav-link" data-toggle="pill"  href="#emAberto">Em aberto</a>
         </li>
         <li class="nav-item" intervalo="false">
-            <a class="nav-link limparIntervalo"data-toggle="pill"  href="#finalizados">Finalizados</a>
+            <a id="abaFinalizados" class="nav-link limparIntervalo"data-toggle="pill"  href="#finalizados">Finalizados</a>
         </li>
         <li class="nav-item" intervalo="false">
-            <a class="nav-link" data-toggle="pill" href="#cancelados">cancelados</a>
+            <a id="abaCancelados" class="nav-link" data-toggle="pill" href="#cancelados">cancelados</a>
         </li>
 	</ul> 
 	</div>
@@ -53,8 +53,8 @@
          </div>
          <div class="modal-footer">
        
-                       <button  id="cancelarPedido" type="button" class="btn btn-sm btn-danger iniciarIntervalo" data-dismiss="modal">Cancelar Pedido</button>
-                       <button  type="button" id="finalizarPedido" class="btn btn-sm btn-success iniciarIntervalo" data-dismiss="modal">Finalizar Pedido</button>
+                       <button  id="cancelarPedido" type="button" class="btn btn-sm btn-danger iniciarIntervalo">Cancelar Pedido</button>
+                       <button  type="button" id="finalizarPedido" class="btn btn-sm btn-success iniciarIntervalo">Finalizar Pedido</button>
             <button  type="button" class="btn btn-sm btn-danger iniciarIntervalo" data-dismiss="modal">Fechar Tela</button>
          </div>
       </div>

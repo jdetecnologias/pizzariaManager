@@ -84,7 +84,6 @@ function setIntervalo(funcao,tempoMili){
   }
   (function(e) {
     "strict mode"
-
     if(document.querySelector("#visualizarPedidos") == null){
   
       }
@@ -113,7 +112,7 @@ function setIntervalo(funcao,tempoMili){
                  }
        });
     });
-      $(document).on("click","#cancelarPedido",function(){
+      $(document).on("click","#abaAbertos #cancelarPedido",function(){
         
           var id = $("#verPedidoTable").attr("idPedido");
           var resp = confirm("Você tem certeza que deseja cancelar este pedido!");
@@ -138,14 +137,9 @@ function setIntervalo(funcao,tempoMili){
           });
           }
         });
-      $(document).on("click","#finalizarPedido",function(){
-        
-          var numeroPedido = $("#verPedidoTable").attr("idPedido");
-          var resp = confirm("Você tem certeza que deseja cancelar este pedido!");
-          if(resp){
-            finalizarPreparo(numeroPedido);
-          }
-        });
+      $(document).on("click","#abaAbertos #finalizarPedido",function(){
+        var numeroPedido = $("#verPedidoTable").attr("idPedido");                 finalizarPreparo(numeroPedido);
+      });
       
       $(document).on("click","#visualizarPedidos li",function(){
             var int = $(this).attr("intervalo");
@@ -408,7 +402,8 @@ function setIntervalo(funcao,tempoMili){
           dadosDoPedido.push({
             "codigo": 9999,
             "preco": arredondarNumeros(tabelaPizzaMeia.getValorTotal(), 2),
-            "texto": tabelaPizzaMeia.getDescricao()
+            "texto": tabelaPizzaMeia.getDescricao(),
+            "formaPagamento":$("#formaPagamento").val()
           });
           formMeiaPizza.mostrarBotoes();
           var cabecalho = getElContent("#corpo_pedido tr.cabecalho");
@@ -448,6 +443,7 @@ function setIntervalo(funcao,tempoMili){
     }
 
     function listarItens(arr, elemento, cabecalho) {
+      console.log(cabecalho);
       var x = 0;
       var texto = cabecalho;
       $(elemento).html("");
@@ -509,10 +505,12 @@ function setIntervalo(funcao,tempoMili){
       } else {
         var controle = 0;
         if (status === "1") {
+          var formaPagamento = $("#formaPagamento").val();
           var id_cliente = document.querySelector("#id_cliente").value;
           var tipoCliente = document.querySelector("#id_cliente").getAttribute("tipoCliente");
           var dados = {
             "tipoCliente":tipoCliente,
+            "formaPagamento":formaPagamento,
             "id_cliente": id_cliente,
             "dadosDoPedido": dadosDoPedido
           };
@@ -896,11 +894,10 @@ x++;
     $("#labelMesa button").on("click",function(){
     modalCliente.inicio();
       $("#id_cliente").attr("tipoCliente",1);
-      
     });
     $("#labelCliente button").on("click",function(){
       $("#mesas").attr("id-mesa","");
-     $("#numeMesa").html(""); 
+      $("#numeMesa").html(""); 
       $("#id_cliente").attr("tipoCliente",2);
     });
    $(".crud-mesa").on("click",function(){

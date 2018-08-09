@@ -12,7 +12,8 @@ class CadastrarProduto extends MY_Controller {
   $this->load->library("ComponentesHtml");
     $html = new ComponentesHtml();
     $produtos = $html->tableProdutos();
-    $var["retorno"] = 7;
+    $var["form"] = 7;
+    $var["retorno"] = 12;
     $var["produtos"] = $produtos;
 		$this->load->view('inicio',$var);
 	}

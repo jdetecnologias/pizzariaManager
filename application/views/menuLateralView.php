@@ -24,14 +24,7 @@
 						</a>
 					</li>
 					<span class="divi sor2"></span>	
-          	<li>
-						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("cadastrarProduto");?>">
-								
-              <p class="fas fa-cart-plus text-sm-left">
-              Produtos</p> 
-								<span role="separator"></span> 
-						</a>
-					</li>
+
 					<span class="divis or2"></span>	
           	<li>
 						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("VerPedido");?>" target="_blank">
@@ -41,17 +34,12 @@
 						</a>
 					</li>
 					<span class="div isor2"></span>
+
+
           <li>
-						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("mesas");?>" >
+						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("exibir/config");?>" >
                <p class="fas fa-cart-plus text-sm-left">
-              Mesas</p>
-								<span role="separator"></span>
-						</a>
-					</li>
-            <li>
-						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("categorias");?>" >
-               <p class="fas fa-cart-plus text-sm-left">
-              Categorias</p>
+              Configurar</p>
 								<span role="separator"></span>
 						</a>
 					</li>

@@ -55,4 +55,8 @@ class Exibir extends MY_Controller {
     }
     
   }
+  
+  public function config(){
+    $this->load->view("inicio",array('retorno'=>12));
+  }
 }

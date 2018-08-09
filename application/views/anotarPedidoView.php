@@ -68,6 +68,8 @@
                                       <td colspan="2">total a pagar </td>
                                       <td  id="valor_total">R$:</td>
                                   </tr>
+                                <tr id="formasPagamento" class='cabecalho'><td>Forma de Pagamento</td><td colspan="2"><?php echo $formasPagamento;?></td></tr>
+                                
 
                                   <tr class="cabecalho">
                                       <td style="bor der:1px solid black;" class="my-auto"><label  style="bo rder:1px solid black;"><span class="">produto</span></label></td>

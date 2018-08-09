@@ -12,7 +12,7 @@ class AnotarPedido extends MY_Controller {
     $cardapio = $prep->tabContentCategorias();
     $cardapioMeiaPizza = $prep->cardapioProdutos(1,null,"meiaPizza");
     $categorias = $prep->abasCategoria();
-		$this->load->view('pdvView',array('retorno'=>1,'cardapio'=>$cardapio,'categorias'=>$categorias,'mesas'=>$mesas,'cardapioMeiaPizza'=>$cardapioMeiaPizza));
+		$this->load->view('pdvView',array('retorno'=>1,'cardapio'=>$cardapio,'categorias'=>$categorias,'mesas'=>$mesas,'formasPagamento'=>$prep->selectFormaPagamento(),'cardapioMeiaPizza'=>$cardapioMeiaPizza));
    
    
   }
@@ -20,6 +20,7 @@ class AnotarPedido extends MY_Controller {
 	public function finalizar(){
 		$id_cliente = $this->input->post("id_cliente");
                $dadosDoPedido = $this->input->post("dadosDoPedido");
+    $formaPagamento = $this->input->post("formaPagamento");
     $tipoCliente = $this->input->post("tipoCliente");
               // $dadosDoPedido[0] = array("codigo"=>5,"preco"=>20.0);
                 $x = 0;
@@ -30,7 +31,7 @@ class AnotarPedido extends MY_Controller {
                     $x++;  
                 }
 	            	$data = now('America/Sao_Paulo');
-                $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"tipoCliente"=>$tipoCliente,"data_criacao"=>$data);
+                $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"tipoCliente"=>$tipoCliente,"data_criacao"=>$data,"formaPagamento"=>$formaPagamento);
                 $this->load->model("anotarPedidoModel");
                 $gravar = new AnotarPedidoModel();
                 $isTrue = $gravar->gravarPedido($pedido);

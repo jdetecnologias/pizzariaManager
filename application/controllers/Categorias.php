@@ -8,7 +8,8 @@ class Categorias extends MY_Controller {
   public function index($var = null){
     $this->load->library("ComponentesHtml");
     $html = new ComponentesHtml();
-    $var["retorno"] = 9;
+    $var["retorno"] = 12;
+    $var["form"] = 9;
     $var["categorias"]  = $html->tableCategorias();
     $this->load->view("inicio",$var);
   }

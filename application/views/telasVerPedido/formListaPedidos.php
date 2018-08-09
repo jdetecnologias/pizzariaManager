@@ -4,10 +4,10 @@
         <td colspan="2">Nome Cliente</td>
         <td>Pedido</td>
         <td>Valor</td>
-        <td>Fechar Pedido</td>
         <td>Data/hora pedido</td>
         <td>Tempo(min)</td>
 		    <td>Status</td>
+        <td>Forma pgto.</td>Status
         <td>Situação</td>
     </tr>
 <?php
@@ -28,12 +28,10 @@
               <td>".$pedido->nome."</td>
               <td>".$pedido->id_pedido."</td>
               <td>".$pedido->preco."</td>
-              <td><a class='btn-primary btn
-              btn-sm viewPedido' data-toggle='modal' data-target='#verPedidoTable' 
-              >Fechar Pedido</a></td>
               <td>".$dataHora."</td>
               <td>".$tempoEspera."</td>
               <td>".$pedido->descricao."</td>
+              <td>".$pedido->formaPagamento."</td>
               <td>".$situacao."</td>
            </tr>";
   }
