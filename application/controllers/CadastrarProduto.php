@@ -75,7 +75,7 @@ class CadastrarProduto extends MY_Controller {
       $this->load->model("ProdutoModel");
       $this->setVariaveis();
       $preparar = new ProdutoModel();
-      $status = $preparar->cadastrarProduto($this->dados);
+      $status = $preparar->cadastrarProduto($this->dados['dados']);
       if($status){
         $msn = "<div class='alert alert-success'>Produto Cadastrado com sucesso</div>";
       }

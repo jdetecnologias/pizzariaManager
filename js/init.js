@@ -16,7 +16,7 @@ $(document).ready(function() {
   function verPedidos(){
     $.ajax({
       url:getUrl("verPedido/atualizarPagina"),
-      type:"GET",
+      type:"post",
       success: function(r){
         $("#visualizarPedidos").parent().html(r);
       }
@@ -91,25 +91,37 @@ function setIntervalo(funcao,tempoMili){
       function iniciarInterval(){
         inter = setIntervalo(verPedidos,3000);
       }
-      
+           $(document).on("click","#voltar",function(){
+             $("#verPedidoTable").addClass("d-none");
+                   $("#visualizarPedidos").show();
+           });
            $(document).on("click","#verPedidoTable .iniciarIntervalo",function(){
                iniciarInterval();
            });
            $(document).on("click",".viewPedido",function(){
-              clearInterval(inter);
+                
+              
               var objClicado = $(this);
-              var pedido = objClicado.attr("pedido"); 
+             var header = objClicado.parents(".header");
+             console.log(header);
+              var pedido = objClicado.parent().attr("pedido"); 
              $.ajax({
                  url:getUrl("verPedido/getPedido"),
                  type:"post",
                  data:{id:pedido},
                  success:function(r){
-                   $("#verPedidoTable").attr("idPedido",pedido);
+                   //$("#verPedidoTable").attr("idPedido",pedido);
+                   
+                   $("#verPedidoTable").removeClass("d-none");
+                   $("#visualizarPedidos").hide();
                    $("#dadosDoPedido").html(r);
                  },
                  error:function(){
-
-                 }
+                    
+                 },
+               beforeSend:function(){
+                 //header.html($("#loading"));
+               }
        });
     });
       $(document).on("click","#abaAbertos #cancelarPedido",function(){
@@ -145,7 +157,6 @@ function setIntervalo(funcao,tempoMili){
             var int = $(this).attr("intervalo");
       if(int==="true"){
         iniciarInterval();
-      
       }
             else if(int ==="false"){
               clearInterval(inter);
@@ -506,6 +517,7 @@ function setIntervalo(funcao,tempoMili){
         var controle = 0;
         if (status === "1") {
           var formaPagamento = $("#formaPagamento").val();
+          
           var id_cliente = document.querySelector("#id_cliente").value;
           var tipoCliente = document.querySelector("#id_cliente").getAttribute("tipoCliente");
           var dados = {

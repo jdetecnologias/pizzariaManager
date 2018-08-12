@@ -280,5 +280,66 @@ return $componente;
     return $componente = $html->gerarHtml("select","name='formaPagamento' id='formaPagamento'",$options);
     
   }
+  public function PedidosView($status,$dataMenor){
+    $this->CI =& get_instance();
+   $this->CI->load->model("VerPedidoModel");
+    $this->CI->load->library('HTML');
+    $html = new HTML();
+    $get = new verPedidoModel();
+    $ped= $get->obterPedidos($status,$dataMenor);
+    $divo = "";
+    foreach($ped as $pedido){
+      $divi = "";
+      $div = "";
+    $dataHora = mdate("%d/%m/%Y %H:%i:%s", $pedido->data_criacao);
+    $tempoPassado = (now("America/Sao_paulo")-$pedido->data_criacao);
+    $tempoEspera = ($tempoPassado-$tempoPassado%60)/60;
+    if($tempoPassado > 80*60){
+      $situacao = "atrasado";
+      $classe = "bg-danger";
+    }
+    else{
+      $situacao = "No prazo";
+      $classe = "bg-success";
+      
+    }
+      // $div .= $html->gerarHtml("div","class='col-6'","Nome");
+    $div .= $html->gerarHtml("div","class='col-12'",$pedido->nome); 
+    $div .= $html->gerarHtml("div","class='col-5 ".$classe."'","Pedido");
+   // $div .= $html->gerarHtml("div","class='col-9'","Forma pagamento ");
+    $div .= $html->gerarHtml("div","class='col-7'",$pedido->id_pedido);  
+    //$div .= $html->gerarHtml("div","class='col-9'",$pedido->formaPagamento);    
+   
+    
+    //$div .= $html->gerarHtml("div","class='col-6'","valor");    
+     
+       //$div .= $html->gerarHtml("div","class='col-6'",$pedido->preco); 
+    //$div .= $html->gerarHtml("div","class='col-12'","data");  
+   
+    //$div .= $html->gerarHtml("div","class='col-12'",$dataHora);   
+    $div .= $html->gerarHtml("div","class='col-5 ".$classe."'","Tempo");    
+      $div .= $html->gerarHtml("div","class='col-7'",$tempoEspera." min."); 
+    $div .= $html->gerarHtml("div","class='col-5  ".$classe."'","Status");     
+    
+    $div .= $html->gerarHtml("div","class='col-7 font-12px'",$pedido->descricao);
+      $span = $html->gerarHtml("span","class='fa fa-times col-12'"," ");
+       $span .= $html->gerarHtml("span","class='text-center col-12' no-padding","Cancelar");
+      $spanV = $html->gerarHtml("div","class='col-4'",$span);
+     
+      $span = $html->gerarHtml("span","class='fa fa-check col-12'"," ");
+      $span .= $html->gerarHtml("span","class='text-center col-12 no-padding'","Finalizar");
+      $spanV .= $html->gerarHtml("div","class='col-4'",$span);
+      $span = $html->gerarHtml("span","class='fa fa-eye col-12'"," ");
+      $span .= $html->gerarHtml("span","class='text-center col-12' no-padding'","Ver");
+       $spanV .= $html->gerarHtml("div","class='col-4 viewPedido'",$span);
+      $divS = $html->gerarHtml("div","pedido='".$pedido->id_pedido."' class='text-center row controles'",$spanV);
+      $div .= $html->gerarHtml("div","class='text-center col-12'",$divS);
+     $divi .= $html->gerarHtml("div"," pedido='".$pedido->id_pedido."' class='header row col-12 '",$div);
+      $divo .= $html->gerarHtml("div"," class='col-4'",$divi);
+    
+  }
+      $grid = $html->gerarHtml("div","class='col-12 row text-center grid-de-pedidos'",$divo);
+    return $grid;
+}
 }
 ?>

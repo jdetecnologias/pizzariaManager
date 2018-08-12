@@ -14,7 +14,39 @@ text-transform: upperca se;
 /* colina da tabela do ver pedidos,retira o padding, para uma melhor visão do acompanhamento dos pedidos. */
 #visualizarPedidos table tr td {
   padding:0;!important
+};
+.no-border-t{border-top:0;!important}
+.no-border-b{border-bottom:0;!important}
+.header div{
+  border:1px solid black;
 }
+.controles div{border:0;}
+.controles .col-4{padding:0;!important}
+
+.header span{
+  border-top:0;!important
+  border-bottom:0;!important
+}
+.header .fa{
+  font-size:20px;!important
+}
+.controles {
+  font-size:12px;
+}
+.header .fa-times{
+  color:red;
+}
+.font-12px{
+  font-size:12px;
+}
+.header .fa-check{
+  color:green;
+}
+.header .bg-danger{
+  color:white;!important
+}
+.grid-de-pedidos{ font-size:16px;}
+.grid-de-pedidos > div {padding-top:15px;}
 /* Cabeçalho da tabela do ver pedidos, aplica a cor de fundo*/
 #visualizarPedidos table tr.cabecalho {
   background-color:#8FBC8F;!important
@@ -25,10 +57,11 @@ text-transform: upperca se;
   line-height:auto;
 }
 .noPrazo {
-  color:green;
+  background-color:green;
 }
 .atrasado {
-  color:red;
+   background-color:red;
+  color:white;
  
 }
 #controles #btnEditarCliente{
@@ -57,6 +90,9 @@ text-transform: upperca se;
 }
 .no-padding-x{
   padding:0;!important
+}
+.no-padding{
+  padding:0 0 0 0;!important
 }
 #menu-lateral{
 	background-image: -webkit-linear-gradient(left, #f6f8f9 0%, #E5EBEE 50%, #D7DEE3 51%, #f5f7f9 100%);

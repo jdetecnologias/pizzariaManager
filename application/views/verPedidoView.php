@@ -1,3 +1,4 @@
+
 <div id="visualizarPedidos" class="col-md-12 row">
 <div class="col-md-12">
 	<ul class="nav nav-pills" role="tablist" data-toggle="buttons">
@@ -17,7 +18,7 @@
 	<h5>Em aberto</h5>
 <?php
 	if(isset($resultAberto) and $resultAberto != false){
-		$this->load->view("telasVerPedido/formListaPedidos",array("ped"=>$resultAberto,"nomeTabela"=>"Em aberto"));
+	echo $resultAberto;
 	}
 ?>
 	  </div>
@@ -25,7 +26,7 @@
 	   <h5>Finalizados</h5>
 <?php
 	if(isset($resultFinalizados) and $resultFinalizados != false){
-		$this->load->view("telasVerPedido/formListaPedidos",array("ped"=>$resultFinalizados,"nomeTabela"=>"Finalizados"));
+		echo $resultFinalizados;
 	}
 ?>
 	  </div>
@@ -33,15 +34,46 @@
 	  <h5>Cancelados</h5>
 <?php
 	if(isset($resultCancelados) and $resultCancelados != false){
-		$this->load -> view("telasVerPedido/formListaPedidos",array("ped"=>$resultCancelados,"nomeTabela"=>"Cancelados"));
+		echo $resultCancelados;
 	}
 ?>
 
 	  </div>
 	  </div>
 </div>
-
-<div id="verPedidoTable" class="modal" idPedido="">
+<div id="verPedidoTable" class="col-12 d-none row">
+  <h2>
+    Dados do Pedido  </h2>
+  <div id="controlePagina" class='col-12'>
+  <button id="voltar" class='btn-sm btn btn-danger'>
+    Voltar
+  </button>
+</div>
+  
+  <div id="info" class='col-12 col-sm-6'>
+    <div id="dadosDoPedido" class="col-12">
+    
+  </div>
+    <div id="botoes" class='col-12'>
+      <button class='btn btn-success btn-sm'>
+       Finalizar
+      </button>
+    </div>
+  </div>
+  
+  <div id="dadosPagamento" class="col-12 col-sm-6">
+    <table class='table'>
+      <tr><td>Valor a Receber</td><td><input class='form-control' name='aReceber' id="aReceber"/></td></tr>
+      <tr><td>Forma de pagamento</td><td><?php echo $formaPgto; ?></td></tr>
+      
+    </table>
+  </div>
+  
+</div>
+<figure id="loading">
+  <img src="<?php echo base_url("imagens/35.gif");?>"
+</div>
+<!--<div id="verPedidoTable" class="modal" idPedido="">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
@@ -52,12 +84,9 @@
     
          </div>
          <div class="modal-footer">
-       
-                       <button  id="cancelarPedido" type="button" class="btn btn-sm btn-danger iniciarIntervalo">Cancelar Pedido</button>
-                       <button  type="button" id="finalizarPedido" class="btn btn-sm btn-success iniciarIntervalo">Finalizar Pedido</button>
-            <button  type="button" class="btn btn-sm btn-danger iniciarIntervalo" data-dismiss="modal">Fechar Tela</button>
+           <button  type="button" class="btn btn-sm btn-danger iniciarIntervalo" data-dismiss="modal">Fechar Tela</button>
          </div>
       </div>
    </div>
-</div>
+</div>-->
 

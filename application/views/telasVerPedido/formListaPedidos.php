@@ -1,5 +1,6 @@
 
-<table class="table table-bordered table-striped table-responsive text-center">
+<?php/* 
+<!--<table class="table table-bordered table-striped table-responsive text-center">
     <tr class="cabecalho">
         <td colspan="2">Nome Cliente</td>
         <td>Pedido</td>
@@ -36,4 +37,5 @@
            </tr>";
   }
 ?>
-</table>
+</table>-->
+*/?>
