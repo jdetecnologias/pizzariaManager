@@ -34,7 +34,13 @@
 						</a>
 					</li>
 					<span class="div isor2"></span>
-
+         <li>
+						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("relatorios");?>" >
+               <p class="fas fa-clipboard text-sm-left">
+              Relatórios</p>
+								<span role="separator"></span>
+						</a>
+					</li>
 
           <li>
 						<a class="borda btn btn-primary text-left text-md-left"   href="<?php echo base_url("exibir/config");?>" >

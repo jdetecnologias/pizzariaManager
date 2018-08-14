@@ -46,6 +46,9 @@
           case 6:
 					  $this->load->view("verPedidoView");
 					break;
+           case 11:
+					  $this->load->view("relatoriosView");
+					break;  
           case 12:
 					  $this->load->view("configView");
 					break;

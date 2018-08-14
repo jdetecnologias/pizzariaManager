@@ -70,7 +70,41 @@ class Pagamento extends MY_Controller {
       $this->index(array("msn"=>$msn));
    }// $isValid
  } // public function cadastrar()     
-  
+
+  public function receber(){
+    $this->load->model("PagamentoModel");
+    $prep = new PagamentoModel();
+    $numeroPedido = $this->input->post("pedido");
+    $formaPagto = $this->input->post("formaPagamento");
+    $valor = $this->input->post("valor");
+    echo "<script>console.log(".$numeroPedido.$valor.$formaPagto.")</script>";
+    $dados["tipoDocumento"] = 1;
+    $dados["numeroDocumento"] = $numeroPedido;
+    $gravarTipo = $prep->criarDoc($dados);
+    if(!$gravarTipo){
+   
+    }
+    else{
+      	$date = now('America/Sao_Paulo');
+      $data["numeroDocumento"] = $gravarTipo;
+      $data["formaPagamento"] = $formaPagto;
+      $data["valor"] = $valor;
+      $data["data_hora"] = $date;
+      $financeiro = $prep->criarFinanceiro($data);
+      if($financeiro){
+        $fin = $this->finalizarPedido($numeroPedido);
+        if($fin == "1"){
+        echo "1";
+          }
+        else{
+          echo "3";
+        }
+      }
+      else{
+        echo "0";
+      }
+    }
+  }
   
   
   

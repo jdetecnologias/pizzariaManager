@@ -50,6 +50,14 @@ class PagamentoModel extends CI_Model{
 			return false;
 		}
   }
+  public function criarDoc($dados){
+    $this->db->insert("documentos",$dados);
+    return $this->db->insert_id();
+  }
+  public function criarFinanceiro($dados){
+   $query =  $this->db->insert("financeiro",$dados);
+    return $query;
+  }
 }
 
 ?>

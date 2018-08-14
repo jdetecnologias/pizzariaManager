@@ -335,11 +335,32 @@ return $componente;
       $divS = $html->gerarHtml("div","pedido='".$pedido->id_pedido."' class='text-center row controles'",$spanV);
       $div .= $html->gerarHtml("div","class='text-center col-12'",$divS);
      $divi .= $html->gerarHtml("div"," pedido='".$pedido->id_pedido."' class='header row col-12 '",$div);
-      $divo .= $html->gerarHtml("div"," class='col-4'",$divi);
+      $divo .= $html->gerarHtml("div"," class='col-2 col-sm-3 col-md-4'",$divi);
     
   }
       $grid = $html->gerarHtml("div","class='col-12 row text-center grid-de-pedidos'",$divo);
     return $grid;
 }
+  public function tabelaRelatorios($dados){
+    $this->CI =& get_instance();
+    $this->CI->load->library("HTML");
+    $html = new HTML();
+    $td = "";
+    foreach($dados[0] as $indice => $valor){
+      $td .= $html->gerarHtml("td",null,$indice);
+    }
+    $tr = $html->gerarHtml("tr",null,$td);
+     
+    foreach($dados as $valor){
+      $td = "";
+      foreach($valor as $v){
+        $td .= $html->gerarHtml("td",null,$v);
+       
+      }
+      $tr .= $html->gerarHtml("tr",null,$td);
+    }
+    $table = $html->gerarHtml("table","class='table'",$tr);
+   return  $table;
+  }
 }
 ?>

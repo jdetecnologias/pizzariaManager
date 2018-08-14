@@ -62,11 +62,16 @@
   </div>
   
   <div id="dadosPagamento" class="col-12 col-sm-6">
-    <table class='table'>
+    <table id="tabelaPagamento" class='table' pedido="">
       <tr><td>Valor a Receber</td><td><input class='form-control' name='aReceber' id="aReceber"/></td></tr>
       <tr><td>Forma de pagamento</td><td><?php echo $formaPgto; ?></td></tr>
       
     </table>
+    <div id="fecharPagamento" class="col-12">
+      <button id="receber" class="btn btn-success">
+        Receber
+      </button>
+    </div>
   </div>
   
 </div>

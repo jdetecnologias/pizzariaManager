@@ -98,6 +98,27 @@ function setIntervalo(funcao,tempoMili){
            $(document).on("click","#verPedidoTable .iniciarIntervalo",function(){
                iniciarInterval();
            });
+          $(document).on("click","#receber",function(){
+            var formaPagto = $("#formaPagamento").val();
+            var pedido = $("#tabelaPagamento").attr("pedido");
+            var valor = $("#aReceber").val();
+            var resp = confirm("Deseja Prosseguir?");
+            var data = {pedido:pedido,formaPagamento:formaPagto,valor:valor};
+            if(resp){
+              $.ajax({
+                url:getUrl("pagamento/receber"),
+                data:data,
+                type:"post",
+                success:function(r){
+                  alert("Salvo  com sucesso");
+                },
+                error:function(){
+                  alert("Erro na requisição, contactar administrador");
+                }
+              });
+            }
+           
+          });
            $(document).on("click",".viewPedido",function(){
                 
               
@@ -115,6 +136,7 @@ function setIntervalo(funcao,tempoMili){
                    $("#verPedidoTable").removeClass("d-none");
                    $("#visualizarPedidos").hide();
                    $("#dadosDoPedido").html(r);
+                   $("#tabelaPagamento").attr("pedido",pedido);
                  },
                  error:function(){
                     
