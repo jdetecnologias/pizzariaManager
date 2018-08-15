@@ -13,19 +13,5 @@ class MY_Controller extends CI_Controller {
          $this->load->view('loginView',array("erro"=>"Favor tentar logar no sistema"));
     }
 	}
-  	public function finalizarPedido($numeroPedido = null){
-
-		$this->load->model("finalizarPreparoModel");
-		$att = new finalizarPreparoModel();
-    if($numeroPedido == null){
-		$numeroPedido = $this->input->post("numeroPedido");
-      }
-		$status = $att->AtualizarStatus($numeroPedido);
-		if($status == true){
-			echo "1";
-		}
-		else{
-			echo "0";
-		}		
-	}
+  
 }

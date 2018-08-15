@@ -31,7 +31,7 @@ class AnotarPedido extends MY_Controller {
                     $x++;  
                 }
 	            	$data = now('America/Sao_Paulo');
-                $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"tipoCliente"=>$tipoCliente,"data_criacao"=>$data,"formaPagamento"=>$formaPagamento);
+                $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"tipoCliente"=>$tipoCliente,"data_criacao"=>$data,"formaPagamento"=>$formaPagamento,"tipoDocumento"=>1);
                 $this->load->model("anotarPedidoModel");
                 $gravar = new AnotarPedidoModel();
                 $isTrue = $gravar->gravarPedido($pedido);

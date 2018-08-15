@@ -62,6 +62,15 @@
   </div>
   
   <div id="dadosPagamento" class="col-12 col-sm-6">
+    <div id="msnServer" class="col-12">
+        
+      </div>
+    <div id="mensagemReceber" class="col-12">
+      
+      <table class="table">
+        <tr><td>Valor pendente</td><td id="valorPendente" finalizado=""> </td></tr>
+      </table>
+    </div>
     <table id="tabelaPagamento" class='table' pedido="">
       <tr><td>Valor a Receber</td><td><input class='form-control' name='aReceber' id="aReceber"/></td></tr>
       <tr><td>Forma de pagamento</td><td><?php echo $formaPgto; ?></td></tr>
@@ -75,8 +84,8 @@
   </div>
   
 </div>
-<figure id="loading">
-  <img src="<?php echo base_url("imagens/35.gif");?>"
+<!--<figure id="loading">
+  <img src="<?php //echo base_url("imagens/35.gif");?>"
 </div>
 <!--<div id="verPedidoTable" class="modal" idPedido="">
    <div class="modal-dialog">

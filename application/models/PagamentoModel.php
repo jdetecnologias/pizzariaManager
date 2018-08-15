@@ -10,6 +10,7 @@ class PagamentoModel extends CI_Model{
             return false;
           }
   }
+  
   public function getFormasPagamento(){
    $this->db->where("status",1);
     $query = $this->db->get("formasPagamento");
@@ -39,6 +40,7 @@ class PagamentoModel extends CI_Model{
       return false;
     } 
   }
+  
   public function deletar($id){
     		$this->db->where("id",$id);
     $this->db->set("status",0);
@@ -50,13 +52,71 @@ class PagamentoModel extends CI_Model{
 			return false;
 		}
   }
-  public function criarDoc($dados){
-    $this->db->insert("documentos",$dados);
-    return $this->db->insert_id();
+  
+  public function receber($dados){
+    $this->db->select("status, preco, parcial");
+    $this->db->where("id_pedido",$dados["numeroDocumento"]);
+    $query = $this->db->get("pedido");
+    $dadosPedido = $query->row();
+    $status= $dadosPedido->status;
+    $parcial = $dadosPedido->parcial;
+    $valorPedido = $dadosPedido->preco;
+    if($status == 1){
+    $this->db->select("sum(valor) as valor");
+    $this->db->where("numeroDocumento",$dados["numeroDocumento"]);
+    $query = $this->db->get("financeiro");
+    if($query->num_rows()<1){
+      $valor = 0;
+    }
+    else{
+      $valor =  $query->row();
+      $valor = $valor->valor;
+    }
+    $valorPendente =  $valorPedido - $valor;
+       if($valorPendente == 0){
+         $retorno["status"] = 0;
+         $retorno["msn"] = "Não há valor a receber deste pedido";             }
+      
+      else if($valorPendente < 0){
+         $retorno["status"] = 0;
+         $retorno["msn"] = "Valor recebido superior ao valor do pedido, excesso de caixa";       
+      }
+      else{
+         if($dados["valor"] <= $valorPendente){
+           $receber = $this->db->insert("financeiro",$dados);
+           if($receber){
+             if($dados["valor"] == $valorPendente){
+                $this->db->set("status",0);
+               $this->db->set("parcial",0);
+             }
+             else{
+                $this->db->set("status",1);
+                $this->db->set("parcial",1);
+             }
+             $this->db->where("id_pedido",$dados["numeroDocumento"]);
+             $atualizar = $this->db->update("pedido");
+             if($atualizar){
+               $retorno["status"] = 1;
+               $retorno["msn"] = "Pedido recebido com sucesso";
+               $retorno["valorPendente"] = $valorPendente-$dados["valor"];
+             }
+           }
+           else{
+             $retorno["status"] = 0;
+             $retorno["msn"] = "Não foi possível salvar os dados financeiro";
+           }
+         }
+        else{
+          $retorno["status"] = 0;
+          $retorno["msn"] = "O valor a receber é superior ao valor pendente de pagamento";        }
+      }
   }
-  public function criarFinanceiro($dados){
-   $query =  $this->db->insert("financeiro",$dados);
-    return $query;
+    else{
+      $retorno["status"] = 0;
+      $retorno["msn"] = "Pedido não está em aberto ou baixado parcial no sistema";
+    }
+    
+    return $retorno;
   }
 }
 

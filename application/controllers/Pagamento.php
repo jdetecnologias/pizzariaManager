@@ -77,33 +77,13 @@ class Pagamento extends MY_Controller {
     $numeroPedido = $this->input->post("pedido");
     $formaPagto = $this->input->post("formaPagamento");
     $valor = $this->input->post("valor");
-    echo "<script>console.log(".$numeroPedido.$valor.$formaPagto.")</script>";
-    $dados["tipoDocumento"] = 1;
+    $date = now('America/Sao_Paulo');
     $dados["numeroDocumento"] = $numeroPedido;
-    $gravarTipo = $prep->criarDoc($dados);
-    if(!$gravarTipo){
-   
-    }
-    else{
-      	$date = now('America/Sao_Paulo');
-      $data["numeroDocumento"] = $gravarTipo;
-      $data["formaPagamento"] = $formaPagto;
-      $data["valor"] = $valor;
-      $data["data_hora"] = $date;
-      $financeiro = $prep->criarFinanceiro($data);
-      if($financeiro){
-        $fin = $this->finalizarPedido($numeroPedido);
-        if($fin == "1"){
-        echo "1";
-          }
-        else{
-          echo "3";
-        }
-      }
-      else{
-        echo "0";
-      }
-    }
+    $dados["formaPagamento"] = $formaPagto;
+    $dados["valor"] = $valor;
+    $dados["data_hora"] = $date;
+    $receber = $prep->receber($dados);
+    echo json_encode($receber);
   }
   
   

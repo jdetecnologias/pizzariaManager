@@ -12,7 +12,7 @@ class Relatorios extends MY_Controller {
     $com = new componentesHtml();
     $prep = new RelatoriosModel();
     $financeiro =  $com->tabelaRelatorios($prep->getFin()["tabela"]);
-    $totais =  $com->tabelaRelatorios($prep->getFin()["tabela"]);
+    $totais =  $com->tabelaRelatorios($prep->getFin()["total"]);
    
     $this->index(array("relatorio"=>$financeiro,"totais"=>$totais));
   }

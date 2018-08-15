@@ -3,13 +3,18 @@
 class VerPedidoModel extends CI_Model{
 
 	public function obterPedidos($codigoStatus,$dataMenor){
-		
+		if($codigoStatus == 1){
+    $this->db->where("pedido.status = '".$codigoStatus."' and pedido.status = '3'");
+    }
+    else{
+      $this->db->where("pedido.status",$codigoStatus);
+    }
 		$this->db->select("clientes.nome as nome, pedido.id_pedido as id_pedido, pedido.preco as preco, pedido.data_criacao as data_criacao,pedido.status as status,estatus.descricao as descricao,formasPagamento.descricao as formaPagamento"); 
 		$this->db->from("pedido");
 		$this->db->join("clientes","pedido.id_cliente = clientes.id","left");
 		$this->db->join("estatus","pedido.status = estatus.codigo","left");
     $this->db->join("formasPagamento","pedido.formaPagamento = formasPagamento.id","left");
-		$this->db->where("pedido.status",$codigoStatus);
+		
 		$this->db->where("pedido.data_criacao >=",$dataMenor);
     $this->db->where("pedido.tipoCliente",2);
     $query1 = $this->db->get_compiled_select();

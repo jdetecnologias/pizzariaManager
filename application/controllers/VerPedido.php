@@ -51,7 +51,7 @@ class VerPedido extends MY_Controller {
       $td="";
     }
     $td .= $html->gerarHtml("td",null,"Total");
-    $td .= $html->gerarHtml("td",null,$total);
+    $td .= $html->gerarHtml("td"," id='valorTotal' ",$total);
     $tr .= $html->gerarHtml("tr",null,$td);
     $table = $html->gerarHtml("table","class='table table-bordered'",$tr);
     echo $table;

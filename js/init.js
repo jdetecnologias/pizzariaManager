@@ -101,7 +101,7 @@ function setIntervalo(funcao,tempoMili){
           $(document).on("click","#receber",function(){
             var formaPagto = $("#formaPagamento").val();
             var pedido = $("#tabelaPagamento").attr("pedido");
-            var valor = $("#aReceber").val();
+            var valor = parseFloat($("#aReceber").val());
             var resp = confirm("Deseja Prosseguir?");
             var data = {pedido:pedido,formaPagamento:formaPagto,valor:valor};
             if(resp){
@@ -110,19 +110,26 @@ function setIntervalo(funcao,tempoMili){
                 data:data,
                 type:"post",
                 success:function(r){
-                  alert("Salvo  com sucesso");
+                  console.log(r.status === 0);
+                  debugger;
+                  if(r.status === 1){
+                  $("#msnServer").html("<div class='alert alert-success'>"+r.msn+"</div>");
+                    $("#valorPendente").html(r.valorPendente);
+                  }
+                  else if(r.status === 0){
+                     $("#msnServer").html("<div class='alert alert-danger'>"+r.msn+"</div>");
+                  }
                 },
                 error:function(){
                   alert("Erro na requisição, contactar administrador");
-                }
+                },
+                 dataType:"json"
               });
             }
            
           });
            $(document).on("click",".viewPedido",function(){
-                
-              
-              var objClicado = $(this);
+             var objClicado = $(this);
              var header = objClicado.parents(".header");
              console.log(header);
               var pedido = objClicado.parent().attr("pedido"); 
@@ -132,11 +139,12 @@ function setIntervalo(funcao,tempoMili){
                  data:{id:pedido},
                  success:function(r){
                    //$("#verPedidoTable").attr("idPedido",pedido);
-                   
+                  
                    $("#verPedidoTable").removeClass("d-none");
                    $("#visualizarPedidos").hide();
                    $("#dadosDoPedido").html(r);
                    $("#tabelaPagamento").attr("pedido",pedido);
+                    $("#valorPendente").html($("#valorTotal").text());
                  },
                  error:function(){
                     
@@ -182,7 +190,7 @@ function setIntervalo(funcao,tempoMili){
       }
             else if(int ==="false"){
               clearInterval(inter);
-          
+                
             }
           });
       
