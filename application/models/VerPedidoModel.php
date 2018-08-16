@@ -3,18 +3,13 @@
 class VerPedidoModel extends CI_Model{
 
 	public function obterPedidos($codigoStatus,$dataMenor){
-		if($codigoStatus == 1){
-    $this->db->where("pedido.status = '".$codigoStatus."' and pedido.status = '3'");
-    }
-    else{
-      $this->db->where("pedido.status",$codigoStatus);
-    }
+
 		$this->db->select("clientes.nome as nome, pedido.id_pedido as id_pedido, pedido.preco as preco, pedido.data_criacao as data_criacao,pedido.status as status,estatus.descricao as descricao,formasPagamento.descricao as formaPagamento"); 
 		$this->db->from("pedido");
 		$this->db->join("clientes","pedido.id_cliente = clientes.id","left");
 		$this->db->join("estatus","pedido.status = estatus.codigo","left");
     $this->db->join("formasPagamento","pedido.formaPagamento = formasPagamento.id","left");
-		
+		$this->db->where("pedido.status",$codigoStatus);
 		$this->db->where("pedido.data_criacao >=",$dataMenor);
     $this->db->where("pedido.tipoCliente",2);
     $query1 = $this->db->get_compiled_select();
@@ -38,7 +33,25 @@ class VerPedidoModel extends CI_Model{
 		}
 	}
   public function getPedido($id){
-  $this->db->select("itens.preco, itens.id_produto, produto.tipoProduto, produto.sabor");
+ 
+    $this->db->where("id_pedido",$id);
+    $query = $this->db->get("pedido");
+    $dadosDoPedido = $query->row();
+    
+    if($dadosDoPedido->parcial == 1){
+      $this->db->select("sum(valor) as valor");
+      $this->db->where("numeroDocumento",$id);
+      $query = $this->db->get("financeiro");
+      $valorPendente = $dadosDoPedido->preco;
+    if($query){
+      $valorPendente = $valorPendente - $query->row()->valor;
+    }
+
+      }
+    else{
+      $valorPendente = $dadosDoPedido->preco;
+    }
+    $this->db->select("itens.preco, itens.id_produto, produto.tipoProduto, produto.sabor");
     $this->db->where("itens.id_pedido",$id);
     $this->db->from("itens");
     $this->db->join("pedido","itens.id_pedido = pedido.id_pedido");
@@ -51,12 +64,12 @@ class VerPedidoModel extends CI_Model{
       return 9;
     }
     else{
-      return $query->result_array();
-    }
-    
+      $retorno["dados"] = $query->result_array();
+      $retorno["valorPendente"] = round($valorPendente,2);
+      return $retorno;
+    }   
   }
-	
-		
+  
 	public function cancelarPedido($id){
     $this->db->set("status",2);
     $this->db->where("id_pedido",$id);

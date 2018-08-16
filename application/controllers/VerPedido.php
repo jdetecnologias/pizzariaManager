@@ -31,7 +31,7 @@ class VerPedido extends MY_Controller {
     $this->load->model("VerPedidoModel");
     $this->load->library("HTML");
     $html = new HTML();
-    $id = $this->input->post("id");
+    $id = $this->input->post("id");   
     $prep = new VerPedidoModel();
     $pedido = $prep->getPedido($id);
     $col = array("Descricao","Preco");
@@ -43,7 +43,7 @@ class VerPedido extends MY_Controller {
     $tr .= $html->gerarHtml("tr",null,$td);
     $td = "";
    $total = 0;
-    foreach ($pedido as $p){
+    foreach ($pedido["dados"] as $p){
     $td .= $html->gerarHtml("td",null,$p['tipoProduto'].$p['sabor']);
     $td .= $html->gerarHtml("td",null,$p['preco']);
     $total += $p['preco'];
@@ -54,7 +54,9 @@ class VerPedido extends MY_Controller {
     $td .= $html->gerarHtml("td"," id='valorTotal' ",$total);
     $tr .= $html->gerarHtml("tr",null,$td);
     $table = $html->gerarHtml("table","class='table table-bordered'",$tr);
-    echo $table;
+    $retorno["table"] = $table;
+    $retorno["valorPendente"] = $pedido["valorPendente"];
+    echo json_encode($retorno);
   }
   public function cancelarPedido(){
     $this->load->model("VerPedidoModel");

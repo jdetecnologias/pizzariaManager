@@ -111,7 +111,7 @@ class PagamentoModel extends CI_Model{
              $this->db->where("id_pedido",$dados["numeroDocumento"]);
              $atualizar = $this->db->update("pedido");
              if($atualizar){
-               $retorno["status"] = 1;
+               $retorno["status"] = 1; 
                $retorno["msn"] = "Pedido recebido com sucesso";
                $retorno["valorPendente"] = round($valorPendente-$dados["valor"],2);
              }
