@@ -72,6 +72,21 @@ class PagamentoModel extends CI_Model{
       $valor =  $query->row();
       $valor = $valor->valor;
     }
+      if($valor == $valorPedido){
+        $this->db->set("status",0);
+        $this->db->set("parcial",0);
+        $this->db->where("id_pedido",$dados["numeroDocumento"]);
+        $atualizar = $this->db->update("pedido");
+        if($atualizar){
+          $retorno["status"] = 0;
+          $retorno["msn"] = "Não há mais saldos pendentes para este pedido";
+        }
+        else{
+          $retorno["status"] = 0;
+          $retorno["msn"] = "Não há mais saldos pendentes para este pedido de compra, mas o sistema não conseguiu atualizar a informação, tente novamente, se não conseguir, contactar o administrador!";
+        }
+      }
+      else{
     $valorPendente =  $valorPedido - $valor;
        if($valorPendente == 0){
          $retorno["status"] = 0;
@@ -98,7 +113,7 @@ class PagamentoModel extends CI_Model{
              if($atualizar){
                $retorno["status"] = 1;
                $retorno["msn"] = "Pedido recebido com sucesso";
-               $retorno["valorPendente"] = $valorPendente-$dados["valor"];
+               $retorno["valorPendente"] = round($valorPendente-$dados["valor"],2);
              }
            }
            else{
@@ -110,6 +125,7 @@ class PagamentoModel extends CI_Model{
           $retorno["status"] = 0;
           $retorno["msn"] = "O valor a receber é superior ao valor pendente de pagamento";        }
       }
+    }
   }
     else{
       $retorno["status"] = 0;

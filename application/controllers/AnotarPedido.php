@@ -19,17 +19,17 @@ class AnotarPedido extends MY_Controller {
 	
 	public function finalizar(){
 		$id_cliente = $this->input->post("id_cliente");
-               $dadosDoPedido = $this->input->post("dadosDoPedido");
+    $dadosDoPedido = $this->input->post("dadosDoPedido");
     $formaPagamento = $this->input->post("formaPagamento");
     $tipoCliente = $this->input->post("tipoCliente");
-              // $dadosDoPedido[0] = array("codigo"=>5,"preco"=>20.0);
+              //$dadosDoPedido[0] = array("codigo"=>5,"preco"=>20.0);
                 $x = 0;
                 $erro = 0;
                 $precoTotal = 0.0;
                 while($x<  sizeof($dadosDoPedido)){
                     $precoTotal += $dadosDoPedido[$x]["preco"];
                     $x++;  
-                }
+                }     
 	            	$data = now('America/Sao_Paulo');
                 $pedido = array("id_cliente"=>$id_cliente,"preco"=>$precoTotal,"status"=>1,"tipoCliente"=>$tipoCliente,"data_criacao"=>$data,"formaPagamento"=>$formaPagamento,"tipoDocumento"=>1);
                 $this->load->model("anotarPedidoModel");
@@ -38,6 +38,7 @@ class AnotarPedido extends MY_Controller {
                 if($isTrue){
                     $id_pedido = $gravar->getInsertId();
                     $x = 0;
+              
                     while($x <  sizeof($dadosDoPedido)){
                             $item = array("id_pedido"=>$id_pedido,
                                 "id_produto"=>$dadosDoPedido[$x]["codigo"],
@@ -46,13 +47,17 @@ class AnotarPedido extends MY_Controller {
                             $isTrue = null;
                             $gravar = null;
                             $gravar = new AnotarPedidoModel();
+                           
                             $isTrue = $gravar->gravarItens($item);
+                            
                             if(!$isTrue){
                                 $erro++;
                             }
                         $x++;
+                       
                     }
-                    if($erro>0){
+                
+                   if($erro>0){
                         echo 0;
                     }
                     else{

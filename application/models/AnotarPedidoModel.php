@@ -9,6 +9,7 @@ class AnotarPedidoModel extends CI_Model{
                 return $this->insert_id;
     }
 	public function gravarPedido($dados){
+    
 			$query = $this->db->insert("pedido",$dados);
                         $this->setInsertId($this->db->insert_id());
 			if($query){
@@ -19,6 +20,7 @@ class AnotarPedidoModel extends CI_Model{
 			}	
 	}
 	public function gravarItens($itens){
+    
 			$insert = $this->db->insert("itens",$itens);
 			if($insert){
 			return true;
