@@ -52,6 +52,9 @@
           case 12:
 					  $this->load->view("configView");
 					break;
+          case 13:
+					  $this->load->view("cepView");
+					break;
           
 					}
 			}	
